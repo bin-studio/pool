@@ -38,6 +38,4 @@
 
 @import 'basscss-addons/modules/all';
 
-@import 'flickity/dist/flickity.css';
-
 @import './settings';
