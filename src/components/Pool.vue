@@ -2,8 +2,8 @@
   <article>
     <section class="border" :class="{'rounded-bottom': !join, 'pool--collapsed': join}">
       <header class="flex justify-between items-stretch border-bottom">
-        <div class="h3 col col-9 px2 flex items-center"><span>Jump in the Pool</span></div>
-        <div class="h3 col col-3 flex items-stretch bg-dots border-left" @click="graph = !graph">
+        <div class="col col-9 px2 flex items-center"><span>Jump in the Pool</span></div>
+        <div class="col col-3 flex items-stretch bg-dots border-left" @click="graph = !graph">
           <popout :pop="graph" class="col-12 flex items-center justify-center">
             <span>Graph</span>
           </popout>
@@ -18,10 +18,10 @@
       <!-- text -->
       <footer class="center border-top">
         <div class="p3">
-          <h1 class="h3 bold">{{name}}</h1>
-          <div class="h3 mt1" v-html="about"></div>
+          <h1 class="bold">{{name}}</h1>
+          <div class="mt1" v-html="about"></div>
         </div>
-        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true"><span class="h3">Join {{holders}} Supporters</span></button>
+        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{holders}} Supporters</button>
       </footer>
     </section>
     <section v-show="join" class="pool__join">

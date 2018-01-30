@@ -1,6 +1,6 @@
 <template>
   <section class="page page-feed p4">
-    <nav class="h3 border-bottom mb4 flex justify-between items-center px2">
+    <nav class="border-bottom mb4 flex justify-between items-center px2">
       <div>Top</div>
       <div>Newest</div>
       <div>Tradeview</div>

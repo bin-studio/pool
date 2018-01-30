@@ -6,12 +6,12 @@
     <footer>
       <router-link :to="{name: 'NewPool'}">
         <div class="mt4 border-top border-bottom">
-          <div class="btn block center"><span class="h3">Start a Pool</span></div>
+          <div class="btn block center"><span>Start a Pool</span></div>
         </div>
       </router-link>
       <router-link :to="{name: 'Explore'}">
         <div class="mt3">
-          <div class="btn rounded block center bg-blue white"><span class="h3">Explore</span></div>
+          <div class="btn rounded block center bg-blue white"><span>Explore</span></div>
         </div>
       </router-link>
     </footer>
