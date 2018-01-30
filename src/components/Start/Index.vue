@@ -19,7 +19,7 @@ export default {
       pool: {
         name: '',
         symbol: '',
-        graph: 'linear',
+        graph: 'slow',
         baseToken: 'DAI',
         customBaseTokenAddress: ''
       }

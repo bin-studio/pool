@@ -14,6 +14,7 @@
 
 <script>
 import Pool from './Pool'
+import store from '@/store'
 export default {
   name: 'Explore',
   components: {
@@ -32,6 +33,11 @@ export default {
         }
       ]
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    store.dispatch('getPools').then(() => {
+      next()
+    })
   }
 }
 </script>
