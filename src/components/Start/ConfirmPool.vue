@@ -27,13 +27,13 @@
         <div class="h3">Estimated Cost (USD)</div>
         <div class="est-price h00 right-align line-height-1">$20</div>
       </div>
-      <status-row class="border-top">
-        <span class="h3">Everything looks good!</span>
+      <status-row class="border-top" :status="ready ? 'passed' : 'queued'" @check-click="ready = !ready">
+        <span class="h3">Everything looks good {{punc}}</span>
       </status-row>
     </div>
     <footer class="mt4">
-      <button @click="$emit('submit')" class="btn col-12 block center rounded bg-blue white">
-        Get in the Pool
+      <button @click="submit" class="btn col-12 block center rounded bg-blue white" :class="{'opacity-qrtr': !ready}">
+        <span class="h3">Open the Pool</span>
       </button>
     </footer>
   </section>
@@ -46,6 +46,21 @@ export default {
   props: ['pool'],
   components: {
     StatusRow
+  },
+  data () {
+    return {
+      ready: false
+    }
+  },
+  computed: {
+    punc () {
+      return this.ready ? '!' : '?'
+    }
+  },
+  methods: {
+    submit () {
+      if (this.ready) this.$emit('submit')
+    }
   }
 }
 </script>
