@@ -7,23 +7,24 @@
       <div>Search</div>
     </nav>
     <section>
-      <pool v-for="pool in pools" :key="pool.symbol" :name="pool.name" :symbol="pool.symbol" :type="pool.type" :base="pool.base" :about="pool.about" :holders="pool.holders"></pool>
+      <pool v-for="pool in pools" :key="pool.symbol" :address="pool.address" :name="pool.name" :symbol="pool.symbol" :type="pool.type" :base="pool.base" :about="pool.about" :holders="pool.holders"></pool>
     </section>
   </section>
 </template>
 
 <script>
-import Pool from './Pool'
+import PoolThumb from './PoolThumb'
 import store from '@/store'
 export default {
   name: 'Explore',
   components: {
-    Pool
+    Pool: PoolThumb
   },
   data () {
     return {
       pools: [
         {
+          address: '0x0',
           name: "Billy's Ukelele Covers Klub",
           symbol: 'BUCK',
           type: 'linear',

@@ -5,6 +5,7 @@ import Start from '@/components/Start'
 import NewPool from '@/components/Start/NewPool'
 import ConfirmPool from '@/components/Start/ConfirmPool'
 import Explore from '@/components/Explore'
+import Pool from '@/components/Pool'
 
 Vue.use(Router)
 
@@ -41,12 +42,22 @@ export default new Router({
       ]
     },
     {
-      path: '/explore',
+      path: '/pools',
       name: 'Explore',
       component: Explore,
       meta: {
         type: 'page',
         title: 'Explore'
+      }
+    },
+    {
+      path: '/pools/:address',
+      name: 'Pool',
+      component: Pool,
+      props: true,
+      meta: {
+        type: 'page',
+        title: 'Pool'
       }
     }
   ]
