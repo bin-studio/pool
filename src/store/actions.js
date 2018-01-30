@@ -7,6 +7,13 @@ export default {
     }).catch((err) => {
       console.log(err)
     })
+  },
+  getPoolDb ({ commit }, address) {
+    axios.get(apiUrl(`/pools/${address}`)).then(({ data }) => {
+      commit('GET_POOL_DB', data)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 }
 
