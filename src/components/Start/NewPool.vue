@@ -26,12 +26,12 @@
           </div>
           <div class="col col-4 px1">
             <img src="./graph--linear.svg" alt="Graph: Linear">
-            <label class="block mt1 mb2" for="graphChoice1">Linear</label>
+            <label class="block mt1 mb2" for="graphChoice2">Linear</label>
             <input class="radio-btn" type="radio" value="linear" v-model="pool.graph" id="graphChoice2">
           </div>
           <div class="col col-4 px1">
             <img src="./graph--exponential.svg" alt="Graph: Exponential">
-            <label class="block mt1 mb2" for="graphChoice1">Exponential</label>
+            <label class="block mt1 mb2" for="graphChoice3">Exponential</label>
             <input class="radio-btn" type="radio" value="exponential" v-model="pool.graph" id="graphChoice3">
           </div>
         </div>
