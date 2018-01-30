@@ -14,6 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "basscss": "^8.0.3",
     "basscss-addons": "^1.0.0",
     "basscss-align": "^1.0.2",
@@ -27,7 +28,8 @@
     "basscss-type-scale": "^1.0.5",
     "basscss-typography": "^3.0.3",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
