@@ -50,4 +50,7 @@ export default {
     min-height:100vh;
     padding-top:10rem;
   }
+  #app .page-feed{
+    padding-top:8rem;
+  }
 </style>

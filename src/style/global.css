@@ -1,6 +1,9 @@
 *{
-  margin:0;
-  padding:0;
+  &, &:after, &:before{
+    margin:0;
+    padding:0;  
+    border-width:inherit;
+  }
 }
 html{
   font-size:12px;
@@ -55,6 +58,12 @@ html{
   animation: spin 1s infinite linear;
 }
 
+.absolute-fill{
+  position: absolute;
+  top:0; left:0; 
+  width:100%; height:100%;
+}
+
 .flex-item-fill{
   flex:1 0 auto;
 }
@@ -73,6 +82,17 @@ html{
 
 img{
   max-width:100%;
+}
+.bg-img{
+  backround-repeat:no-repeat;
+}
+.bg-img-cover{
+  background-size:cover;
+}
+.bg-dots{
+  background-image: url(../assets/bg-dots.svg);
+  background-size:6px 6px;
+  background-position:-4px 4px;
 }
 
 input{
