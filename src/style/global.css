@@ -1,0 +1,23 @@
+*{
+  margin:0;
+  padding:0;
+}
+html{
+  font-size:12px;
+  line-height:normal;
+}
+#app{
+  font-family: sans-serif;
+  font-size:12px;
+  line-height: 1.33;
+}
+
+.icon{
+  background-size:contain;
+  background-repeat:no-repeat;
+}
+.icon-back{
+  background-image:url(../assets/icons/Chevron-Back.svg);
+  width:1.08rem;
+  height:2.33rem;
+}

@@ -1,17 +1,50 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+  <div id="app" class="blue">
+    <header class="fixed top-0 left-0 right-0 p3 bg-white border-box">
+      <div class="flex flex-wrap items-center border-top border-bottom">
+        <div class="col-12 flex justify-between items-center" v-show="$route.name == 'Landing'">
+          <h1 class="h1">Pool</h1>
+          <menu-icon @click="menu = !menu"></menu-icon>
+        </div>
+        <div class="col-12" v-show="$route.meta.type == 'page'">
+          <div class="col col-2"><a class="icon icon-back block" @click="$router.go(-1)"></a></div>
+          <div class="col col-8 center h1">{{$route.meta.title}}</div>  
+          <div class="col col-2 right-align">
+            <div class="inline-block"><menu-icon @click="menu = !menu"></menu-icon></div>
+          </div> 
+        </div>
+      </div>
+    </header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import MenuIcon from '@/components/MenuIcon'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MenuIcon
+  },
+  data () {
+    return {
+      menu: false
+    }
+  }
 }
 </script>
 
 <style>
   @import 'style/imports';
   @import 'style/global';
+
+  #app > header > div{
+    height:6rem;
+  }
+
+  #app .page{
+    box-sizing:border-box;
+    min-height:100vh;
+    padding-top:10rem;
+  }
 </style>
