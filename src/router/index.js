@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Landing from '@/components/Landing'
-import Start from '@/components/StartPool'
+import Start from '@/components/Start'
+import NewPool from '@/components/Start/NewPool'
+import ConfirmPool from '@/components/Start/ConfirmPool'
 import Explore from '@/components/Explore'
 
 Vue.use(Router)
@@ -15,12 +17,27 @@ export default new Router({
     },
     {
       path: '/start',
-      name: 'Start',
       component: Start,
-      meta: {
-        type: 'page',
-        title: 'Start a Pool'
-      }
+      children: [
+        {
+          path: '/',
+          name: 'NewPool',
+          component: NewPool,
+          meta: {
+            type: 'page',
+            title: 'Start a Pool'
+          }
+        },
+        {
+          path: 'confirm',
+          name: 'ConfirmPool',
+          component: ConfirmPool,
+          meta: {
+            type: 'page',
+            title: 'Start a Pool'
+          }
+        }
+      ]
     },
     {
       path: '/explore',

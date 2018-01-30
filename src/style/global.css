@@ -19,9 +19,20 @@ html{
   }
 }
 
+.h00{
+  font-size:var(--h00);
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+.capitalize{
+  text-transform: capitalize;
+}
+
 .icon{
-  background-size:contain;
   background-repeat:no-repeat;
+  background-position: center center;
 }
 .icon-back{
   background-image:url(../assets/icons/Chevron-Back.svg);
@@ -32,7 +43,90 @@ html{
   background-image:url(../assets/art/pool-waves.svg);
   background-size:100% 100%;
 }
+.icon-check{
+  background-image:url(../assets/icons/checkmark.svg);
+  width:42px;
+  height:32px;
+}
+.icon-loading-1{
+  background-image:url(../assets/icons/loading-arc.svg);
+  width:33px;
+  height:33px;
+  animation: spin 1s infinite linear;
+}
 
 .flex-item-fill{
   flex:1 0 auto;
+}
+
+.tbl-row{
+  box-sizing:border-box;
+  min-height:var(--table-row-height);
+}
+.tbl-row__checkbox{
+  width:var(--table-row-height);
+}
+
+.opacity-qrtr{
+  opacity:.25;
+}
+
+img{
+  max-width:100%;
+}
+
+input{
+  border:none;
+  color:inherit;
+  &::placeholder{
+    color:inherit;
+    opacity:.25;
+  }
+  &:focus{
+    outline:none;
+    &::placeholder{
+      color:transparent;
+    }
+  }
+}
+
+.radio-btn{
+  position: relative;
+  background:none;
+  border-style:solid;
+  border-color:inherit;
+  border-width:1px;
+  appearance:none;
+  width:28px;
+  height:28px;
+  border-radius:10rem;
+  &:checked:after{
+    content:'';
+    display:block;
+    position: absolute;
+    top:-2px;
+    left:4px;
+    width:105%; height:105%;
+    background:blue;
+    border-radius:inherit;
+  }
+}
+
+select{
+  color:inherit;
+  appearance:none;
+  border:none;
+  &:focus{
+    outline:none;
+  }
+  
+}
+
+@keyframes spin{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
 }

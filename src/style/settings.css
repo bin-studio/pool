@@ -59,12 +59,12 @@
   --anim-ease: ease-in-out;
 
   /* spacing */
-  --space-1: .5rem;
-  --space-2: 1.25rem;
-  --space-3: 2rem;
-  --space-4: 4rem;
+  --space-1: .5rem; /* 6px */
+  --space-2: .833rem; /* 10px */
+  --space-3: 1.25rem;
+  --space-4: 2rem;
 
-  --h00: 3.2em;
+  --h00: 4.58em;
   --h0: 2.6em;
   --h1: 2em;
   --h2: 1.5em;
@@ -75,7 +75,7 @@
 
   --line-height-1: 1;
   --line-height-2: 1.125;
-  --line-height-3: 1.25;
+  --line-height-3: 1.33;
   --line-height-4: 1.5;
   --caps-letter-spacing: .2em;
   --bold-font-weight: bold;
@@ -97,4 +97,7 @@
 
   --button-color: #fff;
   --button-background-color: var(--orange);
+
+  /* table ui */
+  --table-row-height: 5.5rem;
 }

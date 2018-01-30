@@ -17,8 +17,8 @@ export default {
 
 <style lang="css" scoped>
 .menu-icon{
-  width:3.75rem;
-  height:2rem;
+  width:45px;
+  height:19px;
   border-width:2px;
 }
 .menu-icon div{
