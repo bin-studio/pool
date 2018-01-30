@@ -12,6 +12,13 @@ html{
   line-height: 1.33;
 }
 
+#app a{
+  &, &:link, &:visited{
+    color:inherit;
+    text-decoration: none;
+  }
+}
+
 .icon{
   background-size:contain;
   background-repeat:no-repeat;
@@ -20,4 +27,12 @@ html{
   background-image:url(../assets/icons/Chevron-Back.svg);
   width:1.08rem;
   height:2.33rem;
+}
+.icon-pool{
+  background-image:url(../assets/art/pool-waves.svg);
+  background-size:100% 100%;
+}
+
+.flex-item-fill{
+  flex:1 0 auto;
 }

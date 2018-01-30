@@ -60,7 +60,7 @@
 
   /* spacing */
   --space-1: .5rem;
-  --space-2: 1rem;
+  --space-2: 1.25rem;
   --space-3: 2rem;
   --space-4: 4rem;
 
@@ -85,15 +85,15 @@
   --button-font-family: inherit;
   --button-font-size: inherit;
   --button-font-weight: var(--medium-font-weight);
-  --button-line-height: 1.125rem;
-  --button-padding-y: .5rem;
-  --button-padding-x: 1rem;
+  --button-line-height: 3.5em; /* 1.125em; */
+  --button-padding-y: .5em;
+  --button-padding-x: 1em;
 
-  --button-small-padding-y: .25rem;
-  --button-small-padding-x: .5rem;
-  --button-big-padding-y: 1rem;
-  --button-big-padding-x: 3.25rem;
-  --button-narrow-padding-x: .5rem;
+  --button-small-padding-y: .25em;
+  --button-small-padding-x: .5em;
+  --button-big-padding-y: 1em;
+  --button-big-padding-x: 3.25em;
+  --button-narrow-padding-x: .5em;
 
   --button-color: #fff;
   --button-background-color: var(--orange);

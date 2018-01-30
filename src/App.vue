@@ -2,15 +2,18 @@
   <div id="app" class="blue">
     <header class="fixed top-0 left-0 right-0 p3 bg-white border-box">
       <div class="flex flex-wrap items-center border-top border-bottom">
-        <div class="col-12 flex justify-between items-center" v-show="$route.name == 'Landing'">
-          <h1 class="h1">Pool</h1>
-          <menu-icon @click="menu = !menu"></menu-icon>
-        </div>
-        <div class="col-12" v-show="$route.meta.type == 'page'">
-          <div class="col col-2"><a class="icon icon-back block" @click="$router.go(-1)"></a></div>
-          <div class="col col-8 center h1">{{$route.meta.title}}</div>  
-          <div class="col col-2 right-align">
-            <div class="inline-block"><menu-icon @click="menu = !menu"></menu-icon></div>
+        <div class="col-12 flex justify-between items-center">
+          <template v-if="$route.name == 'Landing'">
+            <h1 class="h1">Pool</h1>
+          </template>
+          <template v-if="$route.meta.type == 'page'">
+            <div class="col col-2">
+              <a class="icon icon-back block" @click="$router.go(-1)"></a>
+            </div>
+            <div class="col col-8 center h1">{{$route.meta.title}}</div>  
+          </template>
+          <div class="col col-2 flex justify-end">
+            <menu-icon @click="menu = !menu"></menu-icon>
           </div> 
         </div>
       </div>
