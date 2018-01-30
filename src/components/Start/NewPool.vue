@@ -84,6 +84,7 @@ export default {
     }
   },
   beforeRouteLeave (to, from, next) {
+    if (to.name !== 'ConfirmPool') return next()
     if (this.canProceed) return next()
   }
 }
