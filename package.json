@@ -14,6 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "basscss": "^8.0.3",
     "basscss-addons": "^1.0.0",
     "basscss-align": "^1.0.2",

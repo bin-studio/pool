@@ -3,12 +3,17 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: 'Explore',
   data () {
-    return {
-
-    }
+    return {}
+  },
+  beforeRouteEnter (to, from, next) {
+    store.dispatch('getPools').then(() => {
+      next()
+    })
   }
 }
 </script>
