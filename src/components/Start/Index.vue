@@ -1,6 +1,6 @@
 <template>
   <article class="page p4">
-    <router-view :pool="pool" v-model="pool" @submit="submit = true"></router-view>
+    <router-view :pool="pool" v-model="pool" @submit="submit = true" @graph="changeGraph"></router-view>
     <deploy :pool="pool" v-if="submit"></deploy>
   </article>
 </template>
@@ -23,6 +23,11 @@ export default {
         baseToken: 'DAI',
         customBaseTokenAddress: ''
       }
+    }
+  },
+  methods: {
+    changeGraph (value) {
+      this.pool.graph = value
     }
   }
 }

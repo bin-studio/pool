@@ -17,22 +17,22 @@
       </div>
       <!-- graph types -->
       <div class="tbl-row h3 pt1 px2 pb2 border-top">
-        <label class="block" for="graph">Type</label>
+        <label class="block" for="graph">Price Rate</label>
         <div class="clearfix center mt4">
-          <div class="col col-4 px1">
-            <img src="./graph--flat.svg" alt="Graph: Flat">
-            <label class="block mt1 mb2" for="graphChoice1">Flat</label>
+          <div class="col col-4 px1" @click="$emit('graph', 'flat')">
+            <img src="./graph--flat.svg" alt="Graph: None">
+            <label class="block mt1 mb2" for="graphChoice1">None</label>
             <input class="radio-btn" type="radio" value="flat" v-model="pool.graph" id="graphChoice1">
           </div>
-          <div class="col col-4 px1">
-            <img src="./graph--linear.svg" alt="Graph: Linear">
-            <label class="block mt1 mb2" for="graphChoice1">Linear</label>
-            <input class="radio-btn" type="radio" value="linear" v-model="pool.graph" id="graphChoice2">
+          <div class="col col-4 px1" @click="$emit('graph', 'slow')">
+            <img src="./graph--linear.svg" alt="Graph: Slow">
+            <label class="block mt1 mb2" for="graphChoice1">Slow</label>
+            <input class="radio-btn" type="radio" value="slow" v-model="pool.graph" id="graphChoice2">
           </div>
-          <div class="col col-4 px1">
-            <img src="./graph--exponential.svg" alt="Graph: Exponential">
-            <label class="block mt1 mb2" for="graphChoice1">Exponential</label>
-            <input class="radio-btn" type="radio" value="exponential" v-model="pool.graph" id="graphChoice3">
+          <div class="col col-4 px1" @click="$emit('graph', 'fast')">
+            <img src="./graph--exponential.svg" alt="Graph: Fast">
+            <label class="block mt1 mb2" for="graphChoice1">Fast</label>
+            <input class="radio-btn" type="radio" value="fast" v-model="pool.graph" id="graphChoice3">
           </div>
         </div>
       </div>
