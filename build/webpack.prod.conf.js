@@ -119,6 +119,15 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
+    ]),
+    // copy /root files into root of build
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../root/*'),
+        to: config.build.assetsRoot,
+        ignore: ['.*'],
+        flatten: true
+      }
     ])
   ]
 })

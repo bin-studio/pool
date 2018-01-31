@@ -12,8 +12,6 @@ html{
 }
 #app{
   font-family: "aktiv-grotesk", Times, sans-serif;
-  font-size:12px;
-  line-height: 1.3;
 }
 
 #app a{
@@ -84,6 +82,9 @@ html{
 .pointer {
   cursor: pointer;
 }
+.no-select, .btn, .pointer{
+  user-select:none;
+}
 
 img{
   max-width:100%;
@@ -107,6 +108,7 @@ input{
   appearance:none;
   font-family: inherit;
   font-size:inherit;
+  font-weight: inherit;
   &::placeholder{
     color:inherit;
     opacity:.25;

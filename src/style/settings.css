@@ -7,9 +7,9 @@
 @custom-media --breakpoint-lg (min-width: 64em);
 
 :root {
-  --custom-font: 'BrownStd-Web', sans-serif;
+  --custom-font: 'aktiv-grotesk', sans-serif;
   /*--body-font: -apple-system, system-ui, "San Francisco", BlinkMacSystemFont, "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, "Segoe UI", Arial, sans-serif;*/
-  --body-font: "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, "Segoe UI", Arial, sans-serif;
+  --body-font: "aktiv-grotesk", Helvetica, Ubuntu, Roboto, Noto, "Segoe UI", Arial, sans-serif;
   --base-font-size: 16px;
   --bold-font-weight: bold;
   --medium-font-weight: 500;
@@ -64,14 +64,14 @@
   --space-3: 1.25rem;
   --space-4: 2rem;
 
-  --h00: 4.58em;
-  --h0: 2.6em;
-  --h1: 2em;
-  --h2: 1.5em;
-  --h3: 1.2em;
+  --h00: 3.5em;
+  --h0: 1.5em;
+  --h1: 1.5em;
+  --h2: 1em;
+  --h3: 1em;
   --h4: 1em;
-  --h5: .875em;
-  --h6: .75em;
+  --h5: 1em;
+  --h6: 1em;
 
   --line-height-1: 1;
   --line-height-2: 1.125;
@@ -99,5 +99,5 @@
   --button-background-color: var(--orange);
 
   /* table ui */
-  --table-row-height: 5.5rem;
+  --table-row-height: 5rem;
 }
