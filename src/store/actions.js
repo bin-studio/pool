@@ -53,16 +53,23 @@ export default {
       }
     })
   },
-  checkAccount ({state, commit}) {
+  checkAccount ({state, commit, dispatch}) {
     return global.web3.eth.getAccounts((error, accounts) => {
       if (error) throw new Error(error)
       if (accounts.length && state.account !== accounts[0]) {
         commit('UPDATE_UNLOCKED', true)
         commit('UPDATE_ACCOUNT', accounts[0])
+        dispatch('login')
       } else if (!accounts.length) {
         commit('UPDATE_UNLOCKED', false)
         commit('UPDATE_ACCOUNT', null)
+        commit('LOGGED_OUT')
       }
+    })
+  },
+  login ({ state, commit }) {
+    return axios.post(apiUrl('/users'), { address: state.address }).then(({ data }) => {
+      commit('LOGGED_IN')
     })
   },
   subscribe: async ({state, commit}, joinData) => {

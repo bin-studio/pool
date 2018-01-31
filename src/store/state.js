@@ -3,6 +3,7 @@ export default {
   network: null,
   unlocked: null,
   currentPool: null,
+  loggedIn: false,
   deploySteps: {
     one: 2,
     two: 0,
