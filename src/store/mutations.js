@@ -13,5 +13,12 @@ export default {
   },
   UPDATE_ACCOUNT (state, account) {
     state.account = account
+  },
+
+  INC_DEPLOY_STEP (state, step) {
+    state[step]++
+  },
+  SET_DEPLOY_STEP (state, { step, val }) {
+    state[step] = val
   }
 }

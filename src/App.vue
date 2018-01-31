@@ -23,7 +23,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import MenuIcon from '@/components/MenuIcon'
+
 export default {
   name: 'App',
   components: {
@@ -33,6 +35,14 @@ export default {
     return {
       menu: false
     }
+  },
+  methods: {
+    ...mapActions([
+      'initWeb3'
+    ])
+  },
+  mounted () {
+    this.initWeb3()
   }
 }
 </script>

@@ -3,7 +3,9 @@ import axios from 'axios'
 import PoolContractArtifacts from '../../eth_contracts/build/contracts/Patron.json'
 // const BN = web3.utils.BN
 import ZeroClientProvider from 'web3-provider-engine/zero.js'
-var poolContract = null
+
+let poolContract = null
+
 export default {
   initWeb3 ({state, commit, dispatch}) {
     return new Promise((resolve, reject) => {
@@ -79,15 +81,14 @@ export default {
       // arguments: [this.name, this.founderName],
       from: state.account
     }).send({
-      from: state.account,
+      from: state.account
       // gas: '4200000'
       // gasPrice: '4000000000'
     }, (e, transactionHash) => {
       // this.deploying = false
       // this.confirming = true
       // this.tx = transactionHash
-    })
-    .on('error', () => {
+    }).on('error', () => {
       // this.confirming = false
       // this.deploying = false
       // this.setLoading(false)
@@ -95,8 +96,7 @@ export default {
       //   text: 'Error has occured, please check logs',
       //   class: 'error'
       // })
-    })
-    .then((newContractInstance) => {
+    }).then((newContractInstance) => {
       poolContract = newContractInstance
       // this.setLoading(false)
       // this.confirming = false

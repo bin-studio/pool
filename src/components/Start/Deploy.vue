@@ -10,10 +10,10 @@
       </p>
     </header>
     <section class="border my4">
-      <status-row status="processing">Sign Transaction</status-row>
-      <status-row class="border-top" status="queued">Transaction Submitted</status-row>
-      <status-row class="border-top" status="queued">Confirming the Transaction</status-row>
-      <status-row class="border-top" status="queued">Transaction Complete</status-row>
+      <status-row :status="deploySteps.sign">Sign Transaction</status-row>
+      <status-row :status="deploySteps.submit" class="border-top">Transaction Submitted</status-row>
+      <status-row :status="deploySteps.confirm" class="border-top">Confirming the Transaction</status-row>
+      <status-row :status="deploySteps.complete" class="border-top">Transaction Complete</status-row>
     </section>
     <footer>
       <button class="btn rounded block col-12 bg-blue white">Please Wait</button>
@@ -26,23 +26,22 @@ import {mapActions} from 'vuex'
 import StatusRow from '../StatusRow'
 export default {
   name: 'Deploy',
-  props: ['pool'],
-  components: {
-    StatusRow
+  props: {
+    pool: Object
   },
-  data () {
-    return {
-
+  computed: {
+    deploySteps () {
+      return this.$store.state.deploySteps
     }
+  },
+  methods: {
+    ...mapActions([
+      'deploy'
+    ])
   },
   mounted () {
     this.deploy(this.pool)
   },
-  methods: {
-    ...mapActions(['deploy'])
-  }
+  components: { StatusRow }
 }
 </script>
-
-<style lang="css" scoped>
-</style>
