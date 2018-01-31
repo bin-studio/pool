@@ -29,7 +29,7 @@
           <router-link :to="{name: 'Pool', params: {address: pool.address}}">
             <h1 class="h4 bold">{{ pool.name }}</h1>
           </router-link>
-          <div class="mt1" v-html="pool.description"></div>
+          <div class="mt1 line-height-3" v-html="pool.description"></div>
         </div>
         <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{ pool.holders }} Supporters</button>
       </footer>

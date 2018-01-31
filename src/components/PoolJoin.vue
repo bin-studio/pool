@@ -17,7 +17,7 @@
       </div>
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('share')" :pop="edit === 'share'">
-          <div>Share</div>
+          <div>Creator's share</div>
           <div><input type="number" class="input-number input-number--3digits" v-model="join.share" @focus="tab('share', false)" @click.stop="stopProp">%</div>
         </popout>
       </div>
