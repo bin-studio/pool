@@ -75,7 +75,8 @@ figure{
     height:100%;
   }
   .pool--collapsed &{
-    padding-bottom:5.75rem;
+    min-height:0;
+    height:5.75rem;
     & .bg-img-cover{
       filter:blur(4px);
       height:120%;
