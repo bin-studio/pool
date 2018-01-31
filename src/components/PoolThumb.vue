@@ -31,7 +31,7 @@
           </router-link>
           <div class="mt1 line-height-3" v-html="pool.description"></div>
         </div>
-        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{ pool.holders }} Supporters</button>
+        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">{{joinLabel}}</button>
       </footer>
     </section>
     <!-- join -->
@@ -63,6 +63,10 @@ export default {
   computed: {
     isOwner () {
       return this.$store.state.account === this.pool.ownerAddress
+    },
+    joinLabel () {
+      if (this.pool.holders > 0) return `Join ${this.pool.holders} Supporters`
+      return 'Support'
     }
   },
   watch: {
