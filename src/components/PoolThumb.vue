@@ -27,8 +27,8 @@
       </footer>
     </section>
     <section v-show="join" class="pool__join">
-      <div class="border">
-        <!-- Subscribe -->
+      <div class="border rounded-bottom">
+        <join></join>
       </div>
     </section>
   </article>
@@ -37,12 +37,14 @@
 <script>
 import Popout from './Popout'
 import Graph from './PoolGraph'
+import Join from './PoolJoin'
 export default {
   name: 'PoolThumb',
   props: ['address', 'name', 'symbol', 'type', 'base', 'thumb', 'about', 'holders'],
   components: {
     Popout,
-    Graph
+    Graph,
+    Join
   },
   data () {
     return {

@@ -102,6 +102,9 @@ img{
 input{
   border:none;
   color:inherit;
+  appearance:none;
+  font-family: inherit;
+  font-size:inherit;
   &::placeholder{
     color:inherit;
     opacity:.25;
@@ -114,13 +117,26 @@ input{
   }
 }
 
+.input-number{
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button{
+    appearance:none;
+    margin:0
+  }
+}
+.input-number--2digits{
+  width:1.25em;
+}
+.input-number--3digits{
+  width:1.75em;
+}
+
 .radio-btn{
   position: relative;
   background:none;
   border-style:solid;
   border-color:inherit;
   border-width:1px;
-  appearance:none;
   width:28px;
   height:28px;
   border-radius:10rem;
