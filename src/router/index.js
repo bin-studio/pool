@@ -6,6 +6,7 @@ import NewPool from '@/components/Start/NewPool'
 import ConfirmPool from '@/components/Start/ConfirmPool'
 import Explore from '@/components/Explore'
 import Pool from '@/components/Pool'
+import EditPool from '@/components/EditPool'
 
 Vue.use(Router)
 
@@ -58,6 +59,16 @@ export default new Router({
       meta: {
         type: 'page',
         title: 'Pool'
+      }
+    },
+    {
+      path: '/edit/:address',
+      name: 'Edit Pool',
+      component: EditPool,
+      props: true,
+      meta: {
+        type: 'page',
+        title: 'Edit'
       }
     }
   ]

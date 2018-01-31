@@ -1,6 +1,12 @@
 <template>
   <div>
-    <input @change="upload" ref="upload" type="file">
+    <div class="flex items-center justify-between pb2">
+      <div>Image</div>
+      <div>
+        <label for="imageUploader" class="pointer">Upload New</label>
+        <input class="display-none" @change="upload" ref="upload" type="file" id="imageUploader">
+      </div>
+    </div>
     <div :style="progressWidth" class="bg-blue"></div>
   </div>
 </template>
@@ -45,11 +51,9 @@ export default {
       data.append('file', this.$refs.upload.files[0])
       data.append('upload_preset', this.uploadPreset)
       axios.post(this.url, data, this.config).then(({ data }) => {
-        // save image data to user/contract
+        // save image upstairs
         this.contract[this.imageType] = data.secure_url
-        this.updateContract(this.contract).then(() => {
-          this.uploading = false
-        })
+        this.uploading = false
       }).catch((err) => {
         console.log(err)
         this.uploading = false

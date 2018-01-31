@@ -2,13 +2,19 @@
   <article class="mb4">
     <section class="border" :class="{'rounded-bottom': !join, 'pool--collapsed': join}">
       <header class="flex justify-between items-stretch border-bottom">
-        <div class="col col-9 px2 flex items-center"><span>Jump in the Pool</span></div>
+        <div class="col col-6 px2 flex items-center"><span>Jump in the Pool</span></div>
+        <!-- edit button -->
+        <router-link :to="{name: 'Edit Pool', params: {address: pool.address}}" class="block col col-3 flex items-center border-left justify-center">
+          <span>Edit</span>
+        </router-link>
+        <!-- trade button -->
         <div class="col col-3 flex items-stretch bg-dots border-left" @click="trade = !trade">
           <popout :pop="trade" class="col-12 flex items-center justify-center pointer">
             <span>Trade</span>
           </popout>
         </div>
       </header>
+      <!-- image / trade view -->
       <figure class="bg-dots relative">
         <div class="absolute top-0 right-0 bottom-0 left-0 overflow-hidden" @click="join = false">
           <pool-image v-show="!trade" :bg="true" :src="pool.heroImage" class="absolute top-0 left-0 col-12"></pool-image>
@@ -28,6 +34,7 @@
         <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{ pool.holders }} Supporters</button>
       </footer>
     </section>
+    <!-- join -->
     <section v-show="join" class="pool__join">
       <div class="border rounded-bottom">
         <join></join>
