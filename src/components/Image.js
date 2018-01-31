@@ -4,7 +4,7 @@ export default {
     return {
       sizes: {
         icon: '',
-        hero: ''
+        hero: 'w_1200,h_800,c_lfill'
       },
       refreshing: false,
       currentSrc: null
@@ -19,13 +19,24 @@ export default {
     },
     changes: Boolean
   },
+  computed: {
+    bgSized () {
+      let parts = this.src.split('/')
+      if (parts.length === 8) {
+        parts[6] = this.hero
+      } else {
+        parts.splice(6, 0, this.hero)
+      }
+      return parts.join('/')
+    }
+  },
   render (createElement) {
     if (!this.src) return
     let query = this.src && this.sizes[this.size]
     if (this.bg) {
       return createElement('div', {
         attrs: {
-          style: `background-image: url(${this.src});`
+          style: `background-image: url(${this.bgSized});`
         },
         'class': 'bg-img-cover bg-img'
       })
