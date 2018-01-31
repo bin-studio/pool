@@ -68,6 +68,7 @@ export default {
   props: ['pool'],
   data () {
     return {
+      value: 30,
       baseOptionsOpen: false,
       baseOptions: ['DAI', 'Custom']
     }
