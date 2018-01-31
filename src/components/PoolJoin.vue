@@ -28,7 +28,7 @@
     </div>
     -->
     <footer>
-      <button class="btn block col-12 bg-blue white">
+      <button @click="deploy(join)" class="btn block col-12 bg-blue white">
         Jump in the Pool
       </button>
     </footer>
@@ -37,6 +37,7 @@
 
 <script>
 import Popout from './Popout'
+import {mapActions} from 'vuex'
 export default {
   name: 'JoinPool',
   components: {
@@ -65,6 +66,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'subscribe'
+    ]),
     tab (tab, toggle = true) {
       if (toggle) {
         this.edit = tab === this.edit ? null : tab
