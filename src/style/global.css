@@ -197,8 +197,7 @@ textarea{
 .vue-slider-component {
   padding: 0 !important;
   border: 1px solid blue !important;
-  width: 282px !important;
-  transform: translateX(6px) translateY(-8px) !important;
+  transform: translateX(8px) translateY(-8px) !important;
 
   .vue-slider {
     border-radius: 0;
