@@ -1,17 +1,12 @@
 <template>
-  <div class="menu-icon border-top border-bottom flex items-center">
+  <div class="menu-icon border-top border-bottom flex items-center" @click="$emit('click')">
     <div class="border-top col-12"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MenuIcon',
-  data () {
-    return {
-
-    }
-  }
+  name: 'MenuIcon'
 }
 </script>
 

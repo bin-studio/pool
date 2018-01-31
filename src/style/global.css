@@ -24,6 +24,9 @@ html{
 .h00{
   font-size:var(--h00);
 }
+.h0{
+  font-size:var(--h0);
+}
 
 .uppercase{
   text-transform: uppercase;
@@ -100,6 +103,11 @@ img{
   background-image: url(../assets/bg-dots.svg);
   background-size:6px 6px;
   background-position:-4px 4px;
+}
+
+.close-icon{
+  top:4rem;
+  right:3rem;
 }
 
 input{
