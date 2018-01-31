@@ -4,9 +4,9 @@
       <figure class="pt4 pb2 mx-auto center">
         <img class="max-width-1" src="../../assets/art/deploy-contract.svg">
       </figure>
-      <p class="h3 mt4">
+      <p class="h3 mt4 center">
         <b>We're Preparing Your Pool</b><br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in mi ex. Phasellus fringilla, felis in euismod consequat. Fringilla, felis in euismod consequat consectetur adipiscing elit. Maecenas in mi ex elit.
+        Please be patient while we set up your pool. This may take some time as we deploy and confirm everything with the blockchain!
       </p>
     </header>
     <section class="border my4">
