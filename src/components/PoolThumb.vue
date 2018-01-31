@@ -4,7 +4,7 @@
       <header class="flex justify-between items-stretch border-bottom">
         <div class="col col-9 px2 flex items-center"><span>Jump in the Pool</span></div>
         <div class="col col-3 flex items-stretch bg-dots border-left" @click="graph = !graph">
-          <popout :pop="graph" class="col-12 flex items-center justify-center">
+          <popout :pop="graph" class="col-12 flex items-center justify-center pointer">
             <span>Graph</span>
           </popout>
         </div>

@@ -6,8 +6,8 @@
       <div>Tradeview</div>
       <div>Search</div>
     </nav>
-    <section>
-      <pool v-for="pool in pools" :key="pool.symbol" :pool="pool"></pool>
+    <section class="mxn2 sm-flex flex-wrap">
+      <pool class="px2 col-12 sm-col-6 lg-col-4" v-for="pool in pools" :key="pool.symbol" :pool="pool"></pool>
     </section>
   </section>
 </template>
