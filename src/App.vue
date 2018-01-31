@@ -55,6 +55,6 @@ export default {
     padding-top: 8.5rem;
   }
   #app .page-feed{
-    padding-top: 8rem;
+    padding-top: 7rem;
   }
 </style>

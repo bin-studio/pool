@@ -16,7 +16,7 @@
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('share')" :pop="edit === 'share'">
           <div>Share</div>
-          <div><input type="number" class="input-number input-number--3digits" v-model="join.share">%</div>
+          <div><input type="number" maxlength="3" class="input-number input-number--3digits" v-model="join.share">%</div>
         </popout>
       </div>
     </header>
