@@ -197,6 +197,12 @@ export default {
     if (!poolContract) return Promise((resolve, reject) => { resolve() })
     return poolContract.methods[functionName].send(...parameters)
   },
+  mint ({commit}) {
+
+  },
+  unmint ({commit}) {
+
+  },
   getBondBalance ({commit}) {
     if (!poolContract) return
     return poolContract.methods.getBalance.call().then((balance) => {
