@@ -14,6 +14,14 @@ export default {
     }).catch((err) => {
       console.log(err)
     })
+  },
+
+  updateContract ({ commit }, contract) {
+    axios.put(apiUrl(`/pools/${contract.address}`), contract).then(({ data }) => {
+      commit('GET_POOL_DB', data)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 }
 

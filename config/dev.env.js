@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  API_BASE: '"https://api.pool.ac"'
+  API_BASE: JSON.stringify(process.env.LOCAL_API || 'https://api.pool.ac')
 })

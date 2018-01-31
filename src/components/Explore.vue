@@ -1,9 +1,12 @@
 <template>
-  <section class="page"></section>
+  <section class="page">
+    <!-- <upload :contract="contract" image-type="heroImage"></upload> -->
+  </section>
 </template>
 
 <script>
 import store from '@/store'
+// import Upload from '@/components/Upload'
 
 export default {
   name: 'Explore',
@@ -15,5 +18,6 @@ export default {
       next()
     })
   }
+  // components: { Upload }
 }
 </script>
