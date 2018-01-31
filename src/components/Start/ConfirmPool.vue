@@ -2,7 +2,7 @@
   <section>
     <div class="line-height-3">
       <h1>Step 2 of 2</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in mi ex. Phasellus fringilla, felis in euismod consequat, ex augue sollicitudin ante, in venenatis nunc. Sollicitudin ante, in venenatis nunc sollicitudin ante, in venenatis nunc.</p>
+      <p>Confirm your Pool's setup and confirm below. The cost to open your pool is an estimate.</p>
     </div>
     <div class="border mt3">
       <div class="tbl-row pt1 px2 pb2">
