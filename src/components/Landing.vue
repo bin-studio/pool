@@ -6,7 +6,8 @@
     <footer>
       <router-link :to="{name: 'NewPool'}">
         <div class="mt4 border-top border-bottom">
-          <div class="btn block center"><span>Start a Pool</span></div>
+          <div class="btn block center" v-if="!loggedIn"><span>Login to Start a Pool</span></div>
+          <div class="btn block center" v-else><span>Start a Pool</span></div>
         </div>
       </router-link>
       <router-link :to="{name: 'Explore'}">
@@ -19,12 +20,16 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: 'Landing',
   data () {
     return {
 
     }
+  },
+  computed: {
+    ...mapState(['loggedIn'])
   }
 }
 </script>
