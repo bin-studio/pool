@@ -68,7 +68,7 @@ export default {
     })
   },
   login ({ state, commit }) {
-    return axios.post(apiUrl('/users'), { address: state.address }).then(({ data }) => {
+    return axios.post(apiUrl('/users'), { address: state.account }).then(({ data }) => {
       commit('LOGGED_IN')
     })
   },
