@@ -185,3 +185,41 @@ textarea{
     transform:rotate(360deg);
   }
 }
+
+/* Slider */
+.pool-slider .vue-slider .vue-slider-dot {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAABdElEQ…enpgBQwHxrkiu16SZtU3eG2oqnww5WC1/3oxnfjNFJyw3vC/6grFUpX2dVAAAAAElFTkSuQmCC) no-repeat;
+    background-size: contain;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.vue-slider-component {
+  padding: 0 !important;
+  border: 1px solid blue !important;
+  width: 282px !important;
+  transform: translateX(6px) translateY(-8px) !important;
+
+  .vue-slider {
+    border-radius: 0;
+    background: #FCFFA3;
+    height: 70px !important;
+  }
+  .vue-slider-dot {
+    background-image: url(../assets/slider-knob.svg);
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    z-index: 3;
+    height: 75px !important;
+    width: 18px !important;
+  }
+  .vue-slider-process {
+    border-radius: 0;
+    background: #FCFFA3;
+    background-image: url(../assets/bg-dots.svg);
+    background-size:6px 6px;
+    background-position:-4px 4px;
+  }
+}

@@ -22,6 +22,11 @@
         </popout>
       </div>
     </header>
+    <div id="sliders" class="bg-dots">
+      <vue-slider v-if="edit === 'give'" ref="sliderGive" v-bind="sliders.give" v-model="join.amount"></vue-slider>
+      <vue-slider v-if="edit === 'duration'" ref="sliderDuration" v-bind="sliders.duration" v-model="join.duration"></vue-slider>
+      <vue-slider v-if="edit === 'share'" ref="sliderShare" v-bind="sliders.share" v-model="join.share"></vue-slider>
+    </div>
     <!-- Slider
     <div class="bg-dots" @click="edit === null ? edit = 'give' : null">
       <popout class="tbl-row bg-yellow" :pop="edit !== null"></popout>
@@ -36,7 +41,8 @@
 </template>
 
 <script>
-import Popout from './Popout'
+import vueSlider from 'vue-slider-component'
+import Popout from '@/components/Popout'
 import { mapActions } from 'vuex'
 
 export default {
@@ -45,11 +51,28 @@ export default {
     return {
       edit: null,
       join: {
-        amount: 5000,
+        amount: 50,
         duration: 6,
         share: 50
       },
-      durationInput: false
+      durationInput: false,
+      sliders: {
+        give: {
+          tooltip: 'never',
+          min: 1,
+          max: 5000
+        },
+        duration: {
+          tooltip: 'never',
+          min: 1,
+          max: 120
+        },
+        share: {
+          tooltip: 'never',
+          min: 1,
+          max: 100
+        }
+      }
     }
   },
   props: {
@@ -68,6 +91,7 @@ export default {
   },
   methods: {
     tab (tab, toggle = true) {
+      // this.$nextTick(() => this.$refs.sliderGive.refresh())
       if (toggle) {
         this.edit = tab === this.edit ? null : tab
       } else {
@@ -83,6 +107,6 @@ export default {
       'subscribe'
     ])
   },
-  components: { Popout }
+  components: { Popout, vueSlider }
 }
 </script>
