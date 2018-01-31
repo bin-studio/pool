@@ -12,12 +12,12 @@
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('duration')" :pop="edit === 'duration'">
           <div>Monthly for</div>
-          <div class="nowrap"><input class="input-number input-number--2digits" type="number" min="1" v-model="join.duration" @focus="tab('duration', false)" @click.stop="stopProp"> Month<span v-show="join.duration > 1">s</span></div>
+          <div class="nowrap"><input class="input-number input-number--3digits" type="number" min="1" v-model="join.duration" @focus="tab('duration', false)" @click.stop="stopProp"> Month<span v-show="join.duration > 1">s</span></div>
         </popout>
       </div>
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('share')" :pop="edit === 'share'">
-          <div>Share</div>
+          <div>Creator's share</div>
           <div><input type="number" class="input-number input-number--3digits" v-model="join.share" @focus="tab('share', false)" @click.stop="stopProp">%</div>
         </popout>
       </div>
@@ -60,7 +60,7 @@ export default {
         give: {
           tooltip: 'never',
           min: 1,
-          max: 5000
+          max: 200
         },
         duration: {
           tooltip: 'never',

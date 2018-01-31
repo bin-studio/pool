@@ -13,10 +13,17 @@
             <div class="col col-8 center h1">{{$route.meta.title}}</div>
           </template>
           <div class="col col-2 flex justify-end">
-            <menu-icon @click="menu = !menu"></menu-icon>
+            <menu-icon class="pointer" @click="menu = true"></menu-icon>
           </div>
         </div>
       </div>
+      <nav v-show="menu" class="fixed top-0 left-0 right-0 bottom-0 bg-white z1 flex items-center justify-center p4 h0">
+        <close-icon class="absolute close-icon" @click="menu = false"></close-icon>
+        <div class="center">
+          <router-link class="block" :to="{name: 'NewPool'}">Start a Pool</router-link>
+          <router-link class="block mt4" :to="{name: 'Explore'}">Explore Pools</router-link>
+        </div>
+      </nav>
     </header>
     <router-view></router-view>
   </div>
@@ -25,15 +32,19 @@
 <script>
 import { mapActions } from 'vuex'
 import MenuIcon from '@/components/MenuIcon'
+import CloseIcon from '@/components/CloseIcon'
 
 export default {
   name: 'App',
-  components: {
-    MenuIcon
-  },
+  components: { MenuIcon, CloseIcon },
   data () {
     return {
       menu: false
+    }
+  },
+  watch: {
+    '$route' () {
+      this.menu = false
     }
   },
   methods: {

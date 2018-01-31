@@ -2,7 +2,7 @@
   <article class="mb4">
     <section class="border" :class="{'rounded-bottom': !join, 'pool--collapsed': join}">
       <header class="flex justify-between items-stretch border-bottom">
-        <div class="col col-6 px2 flex items-center"><span>Jump in the Pool</span></div>
+        <div class="col col-6 px2 flex items-center bold uppercase"><span>{{pool.symbol}}</span></div>
         <!-- edit button -->
         <router-link v-if="isOwner" :to="{name: 'Edit Pool', params: {address: pool.address}}" class="block col col-3 flex items-center border-left justify-center">
           <span>Edit</span>
@@ -29,9 +29,9 @@
           <router-link :to="{name: 'Pool', params: {address: pool.address}}">
             <h1 class="h4 bold">{{ pool.name }}</h1>
           </router-link>
-          <div class="mt1" v-html="pool.description"></div>
+          <div class="mt1 line-height-3" v-html="pool.description"></div>
         </div>
-        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{ pool.holders }} Supporters</button>
+        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">{{joinLabel}}</button>
       </footer>
     </section>
     <!-- join -->
@@ -63,6 +63,10 @@ export default {
   computed: {
     isOwner () {
       return this.$store.state.account === this.pool.ownerAddress
+    },
+    joinLabel () {
+      if (this.pool.holders > 0) return `Join ${this.pool.holders} Supporters`
+      return 'Support'
     }
   },
   watch: {
