@@ -163,7 +163,18 @@ select{
   &:focus{
     outline:none;
   }
+}
 
+textarea{
+  color:inherit;
+  appearance:none;
+  font-size:inherit;
+  font-weight:inherit;
+  width:100%;
+  resize:none;
+  &:focus{
+    outline:none;
+  }
 }
 
 @keyframes spin{

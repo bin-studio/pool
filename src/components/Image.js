@@ -32,7 +32,7 @@ export default {
   },
   render (createElement) {
     if (!this.src) return
-    let query = this.src && this.sizes[this.size]
+    // let query = this.src && this.sizes[this.size]
     if (this.bg) {
       return createElement('div', {
         attrs: {
@@ -44,7 +44,8 @@ export default {
 
     return createElement('img', {
       attrs: {
-        src: this.src + (query || '')
+        // src: this.src + (query || '')
+        src: this.bgSized
       },
       'class': { refreshing: this.refreshing },
       ref: 'imgEl'
