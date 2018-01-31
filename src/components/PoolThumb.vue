@@ -37,7 +37,7 @@
     <!-- join -->
     <section v-show="join" class="pool__join">
       <div class="border rounded-bottom">
-        <join></join>
+        <join :pool="pool"></join>
       </div>
     </section>
   </article>

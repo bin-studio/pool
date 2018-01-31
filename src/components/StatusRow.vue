@@ -2,9 +2,9 @@
   <div class="tbl-row relative flex items-center px2">
     <slot></slot>
     <div class="tbl-row__checkbox flex items-center justify-center absolute top-0 bottom-0 right-0 border-left" @click="$emit('check-click')">
-      <div class="icon icon-check" v-show="status === 'passed'"></div>
-      <div class="icon icon-loading-1" v-show="status === 'processing'"></div>
-      <div class="icon icon-check opacity-qrtr" v-show="status === 'queued'"></div>
+      <div class="icon icon-check" v-show="status === 2"></div>
+      <div class="icon icon-loading-1" v-show="status === 1"></div>
+      <div class="icon icon-check opacity-qrtr" v-show="status === 0"></div>
     </div>
   </div>
 </template>
@@ -14,13 +14,8 @@ export default {
   name: 'StatusRow',
   props: {
     status: {
-      type: String,
-      default: 'passed'
-    }
-  },
-  data () {
-    return {
-
+      type: Number,
+      default: 0
     }
   }
 }

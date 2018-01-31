@@ -27,7 +27,7 @@
         <div>Estimated Cost (USD)</div>
         <div class="est-price h00 right-align line-height-1">$20</div>
       </div>
-      <status-row class="border-top" :status="ready ? 'passed' : 'queued'" @check-click="ready = !ready">
+      <status-row class="border-top" :status="ready ? 2 : 0" @check-click="ready = !ready">
         Everything looks good {{punc}}
       </status-row>
     </div>

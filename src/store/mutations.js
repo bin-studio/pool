@@ -4,5 +4,21 @@ export default {
   },
   GET_POOL_DB (state, pool) {
     state.pool = pool
+  },
+  UPDATE_NETWORK (state, network) {
+    state.network = network
+  },
+  UPDATE_UNLOCKED (state, unlocked) {
+    state.unlocked = unlocked
+  },
+  UPDATE_ACCOUNT (state, account) {
+    state.account = account
+  },
+
+  INC_DEPLOY_STEP (state, step) {
+    state[step]++
+  },
+  SET_DEPLOY_STEP (state, { step, val }) {
+    state[step] = val
   }
 }
