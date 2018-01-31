@@ -23,9 +23,9 @@ export default {
     bgSized () {
       let parts = this.src.split('/')
       if (parts.length === 8) {
-        parts[6] = this.hero
+        parts[6] = this.sizes.hero
       } else {
-        parts.splice(6, 0, this.hero)
+        parts.splice(6, 0, this.sizes.hero)
       }
       return parts.join('/')
     }
