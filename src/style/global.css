@@ -84,6 +84,9 @@ html{
 .pointer {
   cursor: pointer;
 }
+.no-select, .btn, .pointer{
+  user-select:none;
+}
 
 img{
   max-width:100%;
@@ -107,6 +110,7 @@ input{
   appearance:none;
   font-family: inherit;
   font-size:inherit;
+  font-weight: inherit;
   &::placeholder{
     color:inherit;
     opacity:.25;
