@@ -2,35 +2,28 @@ import Web3 from 'web3'
 import axios from 'axios'
 
 import PoolContractArtifacts from '../../eth_contracts/build/contracts/Patron.json'
+import ERC20ContractArtifacts from '../../eth_contracts/build/contracts/ERC20.json'
 // const BN = web3.utils.BN
 import ZeroClientProvider from 'web3-provider-engine/zero.js'
 window.deleteIt = function (address) {
   axios.delete('https://api.pool.ac/pools/' + address)
 }
 let poolContract = null
+let baseContract = null
 export default {
   initWeb3 ({state, commit, dispatch}) {
     return new Promise((resolve, reject) => {
       // check for aedentity app
       if (global.web3) {
         var web3Provider = global.web3.currentProvider
-        // attempt to try again if no aedentity app or metamask
-      // } else if (this.options.connectionRetries > 0){
-      //   this.options.connectionRetries -= 1
-      //   setTimeout(() => {
-      //     console.log('try to connect again')
-      //     this.initWeb3().then(resolve).catch((error) => {
-      //       reject(new Error(error))
-      //     })
-      //   }, 1000)
-      //   // revert to a read only version using infura endpoint
       } else {
         this.readOnly = true
         web3Provider = ZeroClientProvider({
           getAccounts: function () {},
           // rpcUrl: 'https://mainnet.infura.io',
           // rpcUrl: 'https://testnet.infura.io',
-          rpcUrl: 'https://rinkeby.infura.io'
+          // rpcUrl: 'https://rinkeby.infura.io'
+          rpcUrl: 'https://ropsten.infura.io'
           // rpcUrl: 'https://kovan.infura.io',
         })
       }
@@ -55,6 +48,7 @@ export default {
       if (err) console.error(err)
       if (!err && state.network !== netId) {
         commit('UPDATE_NETWORK', netId)
+        dispatch('getPools')
         dispatch('deployContract')
       }
     })
@@ -71,8 +65,18 @@ export default {
       }
     })
   },
-  subscribe ({state, commit}, joinData) {
+  subscribe: async ({state, commit}, joinData) => {
+    let utils = global.web3.utils
     console.log(joinData)
+    console.log(baseContract)
+    let balance = await baseContract.methods.balanceOf(state.account).call()
+    let allowed = await baseContract.methods.allowance(state.account, state.pool.address).call()
+    console.log(balance)
+    console.log(allowed)
+    let totalAllowed = utils.toWei(utils.toBN(joinData.amount)).mul(utils.toBN(joinData.duration))
+    console.log(totalAllowed.toString())
+    // if (totalAllowed.sub())
+    // function subscribe (address patron, uint256 amount, uint256 interval, uint256 percentToPatron) public payable {
   },
   deploy ({state, commit, dispatch}, pool) {
     let utils = global.web3.utils
@@ -86,7 +90,7 @@ export default {
     let rinkebyBaseToken = '0x0806ba7d6dabc06a480988205c49e78af265ed57'
     console.log(state.network === 4 ? 'is rinkeby' : 'is not rinkeby')
 
-    let ganache = '0x8cdaf0cd259887258bc13a92c0a6da92698644c0'
+    let ganache = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254'
 
     let baseToken = state.network === 4 ? rinkebyBaseToken : ropstenBaseToken
     baseToken = ganache
@@ -138,7 +142,8 @@ export default {
         symbol: pool.symbol,
         type: 'linear',
         base: 'DAI',
-        baseAddress: baseToken,
+        baseToken: baseToken,
+        networkId: state.network,
         links: []
       }).then(({ data }) => {
         commit('INC_DEPLOY_STEP', 'four')
@@ -150,9 +155,11 @@ export default {
       // this.address = newContractInstance.options.address
     })
   },
-  deployContract ({state, commit}) {
-    if (state.currentPool) {
-      poolContract = new global.web3.eth.Contract(PoolContractArtifacts.abi, state.currentPool)
+  deployContract ({state, commit}, poolAddress = state.poolAddress) {
+    console.log('deploy contract!')
+    if (poolAddress) {
+      poolContract = new global.web3.eth.Contract(PoolContractArtifacts.abi, poolAddress)
+      baseContract = new global.web3.eth.Contract(ERC20ContractArtifacts.abi, state.pool.baseToken)
     }
   },
   callConstant ({commit}, functionName, parameters) {
@@ -169,8 +176,12 @@ export default {
       console.log(balance)
     })
   },
-  getPools ({ commit }) {
-    axios.get(apiUrl('/pools')).then(({ data }) => {
+  getPools ({ commit, state }) {
+    axios.get(apiUrl('/pools'), {
+      params: {
+        networkId: state.network
+      }
+    }).then(({ data }) => {
       commit('GET_POOLS', data)
     }).catch((err) => {
       console.log(err)
@@ -184,9 +195,10 @@ export default {
     })
   },
 
-  updateContract ({ commit }, contract) {
+  updateContract ({ commit, dispatch }, contract) {
     axios.put(apiUrl(`/pools/${contract.address}`), contract).then(({ data }) => {
       commit('GET_POOL_DB', data)
+      dispatch('deployContract')
     }).catch((err) => {
       console.log(err)
     })

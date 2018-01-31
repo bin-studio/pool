@@ -46,7 +46,7 @@ import Popout from '@/components/Popout'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'JoinPool',
+  name: 'PoolJoin',
   data () {
     return {
       edit: null,
@@ -85,6 +85,7 @@ export default {
         val.duration = val.duration < 1 ? 1 : val.duration
         if (val.share < 0) val.share = 0
         if (val.share > 100) val.share = 100
+        this.deployContract(this.pool.address)
       },
       deep: true
     }
@@ -100,11 +101,12 @@ export default {
     },
     stopProp () {},
     sub () {
-      this.subscribe(this.pool)
+      this.subscribe(this.join)
     },
 
     ...mapActions([
-      'subscribe'
+      'subscribe',
+      'deployContract'
     ])
   },
   components: { Popout, vueSlider }

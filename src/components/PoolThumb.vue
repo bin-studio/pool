@@ -37,7 +37,7 @@
     <!-- join -->
     <section v-show="join" class="pool__join">
       <div class="border rounded-bottom">
-        <join :pool="pool"></join>
+        <pool-join :pool="pool"></pool-join>
       </div>
     </section>
   </article>
@@ -46,9 +46,9 @@
 <script>
 import Popout from '@/components/Popout'
 import Trade from './PoolTrade'
-import Join from './PoolJoin'
+import PoolJoin from './PoolJoin'
 import PoolImage from '@/components/Image'
-
+import { mapActions } from 'vuex'
 export default {
   name: 'PoolThumb',
   props: {
@@ -69,15 +69,21 @@ export default {
       return 'Support'
     }
   },
+  methods: {
+    ...mapActions([
+      'deployContract'
+    ])
+  },
   watch: {
     join () {
       if (this.join) this.trade = false
+      if (this.join) this.deployContract(this.pool.address)
     },
     trade () {
       if (this.trade) this.join = false
     }
   },
-  components: { Popout, Trade, Join, PoolImage }
+  components: { Popout, Trade, PoolJoin, PoolImage }
 }
 </script>
 

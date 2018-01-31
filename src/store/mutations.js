@@ -4,6 +4,7 @@ export default {
   },
   GET_POOL_DB (state, pool) {
     state.pool = pool
+    state.currentPool = pool.address
   },
   UPDATE_NETWORK (state, network) {
     state.network = network
