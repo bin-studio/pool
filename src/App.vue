@@ -45,6 +45,11 @@ export default {
     height:6rem;
   }
 
+  header h1 {
+    font-weight: 400;
+    font-size: 3em !important;
+  }
+
   #app .page{
     box-sizing:border-box;
     min-height:100vh;
