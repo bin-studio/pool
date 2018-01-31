@@ -19,20 +19,22 @@
       <div class="tbl-row pt1 px2 pb1 border-top">
         <label class="block" for="graph">Price Rate</label>
         <div class="clearfix center mt4">
-          <div class="col col-4 px1" @click="$emit('graph', 'flat')">
+          <!-- disabled -->
+          <div class="col col-4 px1 opacity-qrtr">
             <img src="./graph--flat.svg" alt="Graph: None">
             <label class="block mt1 mb2" for="graphChoice1">None</label>
-            <input class="radio-btn" type="radio" value="flat" v-model="pool.graph" id="graphChoice1">
+            <input class="radio-btn" type="radio" value="flat" v-model="pool.graph" id="graphChoice1" disabled>
           </div>
           <div class="col col-4 px1" @click="$emit('graph', 'slow')">
             <img src="./graph--linear.svg" alt="Graph: Slow">
             <label class="block mt1 mb2" for="graphChoice1">Slow</label>
             <input class="radio-btn" type="radio" value="slow" v-model="pool.graph" id="graphChoice2">
           </div>
-          <div class="col col-4 px1" @click="$emit('graph', 'fast')">
+          <!-- disabled -->
+          <div class="col col-4 px1 opacity-qrtr">
             <img src="./graph--exponential.svg" alt="Graph: Fast">
             <label class="block mt1 mb2" for="graphChoice1">Fast</label>
-            <input class="radio-btn" type="radio" value="fast" v-model="pool.graph" id="graphChoice3">
+            <input class="radio-btn" type="radio" value="fast" v-model="pool.graph" id="graphChoice3" disabled>
           </div>
         </div>
       </div>
