@@ -4,19 +4,21 @@
       <div class="bg-dots col col-4">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('give')" :pop="edit === 'give'">
           <div>Give</div>
-          <div>$<input class="inline-block input-number" type="number" v-model="join.amount" min="1" @focus="tab('give')" @click.stop="stopProp"></div>
+          <div class="relative">
+            <span class="absolute left-0 bottom-0">$</span><input class="block col-12 pl2 input-number" type="number" v-model="join.amount" min="1" @focus="tab('give', false)" @click.stop="stopProp">
+          </div>
         </popout>
       </div>
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('duration')" :pop="edit === 'duration'">
           <div>Monthly for</div>
-          <div class="nowrap"><input class="input-number input-number--2digits" type="number" min="1" v-model="join.duration" @focus="tab('duration')" @click.stop="stopProp"> Month<span v-show="join.duration > 1">s</span></div>
+          <div class="nowrap"><input class="input-number input-number--2digits" type="number" min="1" v-model="join.duration" @focus="tab('duration', false)" @click.stop="stopProp"> Month<span v-show="join.duration > 1">s</span></div>
         </popout>
       </div>
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('share')" :pop="edit === 'share'">
           <div>Share</div>
-          <div><input type="number" maxlength="3" class="input-number input-number--3digits" v-model="join.share">%</div>
+          <div><input type="number" class="input-number input-number--3digits" v-model="join.share" @focus="tab('share', false)" @click.stop="stopProp">%</div>
         </popout>
       </div>
     </header>
@@ -52,17 +54,23 @@ export default {
     }
   },
   watch: {
-    edit () {
-      var min1 = (val) => parseInt(val) < 0 ? 1 : val
-      this.join.amount = min1(this.join.amount)
-      this.join.duration = min1(this.join.duration)
-      if (this.join.share < 0) this.join.share = 0
-      if (this.join.share > 100) this.join.share = 100
+    join: {
+      handler: function (val) {
+        val.amount = val.amount < 0 ? 0 : val.amount
+        val.duration = val.duration < 1 ? 1 : val.duration
+        if (val.share < 0) val.share = 0
+        if (val.share > 100) val.share = 100
+      },
+      deep: true
     }
   },
   methods: {
-    tab (tab) {
-      this.edit = tab === this.edit ? null : tab
+    tab (tab, toggle = true) {
+      if (toggle) {
+        this.edit = tab === this.edit ? null : tab
+      } else {
+        this.edit = tab
+      }
     },
     stopProp () {}
   }

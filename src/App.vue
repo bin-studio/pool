@@ -4,7 +4,7 @@
       <div class="flex flex-wrap items-center border-top border-bottom">
         <div class="col-12 flex justify-between items-center p1">
           <template v-if="$route.name == 'Landing'">
-            <h1 class="h00">Pool</h1>
+            <h1 class="h00 regular">Pool</h1>
           </template>
           <template v-else>
             <div class="col col-2">
@@ -43,10 +43,6 @@ export default {
 
   #app > header > div{
     height:5rem;
-  }
-
-  header h1 {
-    font-weight: 400;
   }
 
   #app .page{
