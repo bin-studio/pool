@@ -15,6 +15,7 @@
 <script>
 import PoolThumb from './PoolThumb'
 import store from '@/store'
+
 export default {
   name: 'Explore',
   components: {
@@ -40,6 +41,7 @@ export default {
       next()
     })
   }
+  // components: { Upload }
 }
 </script>
 
