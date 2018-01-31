@@ -11,9 +11,9 @@
       </header>
       <figure class="bg-dots relative">
         <div class="absolute bg-img bg-img-cover" :style="'background-image:' + thumb" @click="join = false"></div>
-        <popout v-show="graph" :pop="graph" class="absolute-fill bg-white">
-          <!-- Graph -->
-        </popout>
+          <popout v-show="graph" :pop="graph" class="absolute-fill bg-white">
+            <!-- Graph -->
+          </popout>
       </figure>
       <!-- text -->
       <footer class="center border-top">

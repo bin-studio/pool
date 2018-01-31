@@ -6,17 +6,17 @@
     </div>
     <div class="border mt3">
       <!-- name -->
-      <div class="tbl-row pt1 px2 pb2">
+      <div class="tbl-row pt1 px2 pb1">
         <label class="block" for="name">Name</label>
         <input id="nameInput" class="h3 bold block col-12 mt1" name="name" type="text" v-model="pool.name">
       </div>
       <!-- symbol -->
-      <div class="tbl-row pt1 px2 pb2 border-top">
+      <div class="tbl-row pt1 px2 pb1 border-top">
         <label class="block" for="symbolInput">Symbol <span class="red" v-show="pool.symbol.length > 7">too long!</span></label>
         <input id="symbolInput" class="h3 uppercase bold block col-12 mt1" name="symbol" type="text" v-model="pool.symbol" min="1" max="7">
       </div>
       <!-- graph types -->
-      <div class="tbl-row pt1 px2 pb2 border-top">
+      <div class="tbl-row pt1 px2 pb1 border-top">
         <label class="block" for="graph">Price Rate</label>
         <div class="clearfix center mt4">
           <div class="col col-4 px1" @click="$emit('graph', 'flat')">
@@ -37,7 +37,7 @@
         </div>
       </div>
       <!-- select -->
-      <div class="tbl-row pt1 px2 pb2 border-top" @click="baseOptionsOpen = !baseOptionsOpen">
+      <div class="tbl-row pt1 px2 pb1 border-top" @click="baseOptionsOpen = !baseOptionsOpen">
         <label class="block"  for="baseTokenSelect">Select Base Token</label>
         <div class="h3 mt1 bold">{{pool.baseToken}}</div>
       </div>
@@ -47,7 +47,7 @@
         </div>
       </div>
       <!-- select: custom addr -->
-      <div v-show="showCustomAddr" class="tbl-row pt1 px2 pb2 border-top">
+      <div v-show="showCustomAddr" class="tbl-row pt1 px2 pb1 border-top">
         <label class="block" for="customAddressInput">Base Token Address</label>
         <input class="h3 bold mt1" type="text" id="customAddressInput" v-model="pool.customBaseTokenAddress" placeholder="0x0">
       </div>

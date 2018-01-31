@@ -1,5 +1,5 @@
 <template>
-  <div class="popout bg-white" :class="{'popout--pop': pop}">
+  <div class="popout bg-white transition-default" :class="{'popout--pop': pop}">
     <slot></slot>
   </div>
 </template>
