@@ -14,11 +14,13 @@ export default {
   UPDATE_ACCOUNT (state, account) {
     state.account = account
   },
-
   INC_DEPLOY_STEP (state, step) {
-    state[step]++
+    state.deploySteps[step]++
   },
   SET_DEPLOY_STEP (state, { step, val }) {
-    state[step] = val
+    state.deploySteps[step] = val
+  },
+  UPDATE_CURRENT_POOL (state, currentPool) {
+    state.currentPool = currentPool
   }
 }

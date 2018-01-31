@@ -29,6 +29,7 @@
     "basscss-type-scale": "^1.0.5",
     "basscss-typography": "^3.0.3",
     "fecha": "^2.3.2",
+    "moment": "^2.20.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-slider-component": "^2.5.3",

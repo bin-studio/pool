@@ -65,6 +65,7 @@ export default {
       this.saveText = 'Saving...'
       this.$store.dispatch('updateContract', this.newPool).then(() => {
         this.saveText = 'Done!'
+        this.$router.push('/pools/' + this.pool.address)
         setTimeout(() => {
           this.saveText = 'Save'
         }, 2000)

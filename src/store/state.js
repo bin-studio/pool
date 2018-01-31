@@ -4,10 +4,10 @@ export default {
   unlocked: null,
   currentPool: null,
   deploySteps: {
-    sign: 0,
-    submit: 0,
-    confirm: 0,
-    complete: 0
+    one: 2,
+    two: 0,
+    three: 0,
+    four: 0
   },
   msg: 'Welcome to the Pool Party',
   pool: {}, // from blockchain :)

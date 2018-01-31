@@ -10,19 +10,19 @@
       </p>
     </header>
     <section class="border my4">
-      <status-row :status="deploySteps.sign">Sign Transaction</status-row>
-      <status-row :status="deploySteps.submit" class="border-top">Transaction Submitted</status-row>
-      <status-row :status="deploySteps.confirm" class="border-top">Confirming the Transaction</status-row>
-      <status-row :status="deploySteps.complete" class="border-top">Transaction Complete</status-row>
+      <status-row :status="deploySteps.one">Write Transaction</status-row>
+      <status-row :status="deploySteps.two" class="border-top">Transaction Signed</status-row>
+      <status-row :status="deploySteps.three" class="border-top">Transaction Submitted</status-row>
+      <status-row :status="deploySteps.four" class="border-top">Transaction Complete</status-row>
     </section>
     <footer>
-      <button class="btn rounded block col-12 bg-blue white">Please Wait</button>
+      <button @click.self="viewPool()" class="btn rounded block col-12 bg-blue white">{{actionButton}}</button>
     </footer>
   </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import StatusRow from '../StatusRow'
 export default {
   name: 'Deploy',
@@ -30,6 +30,10 @@ export default {
     pool: Object
   },
   computed: {
+    ...mapState(['currentPool']),
+    actionButton () {
+      return this.deploySteps.four === 2 ? 'Edit Pool 🎉' : 'Please Wait'
+    },
     deploySteps () {
       return this.$store.state.deploySteps
     }
@@ -37,7 +41,12 @@ export default {
   methods: {
     ...mapActions([
       'deploy'
-    ])
+    ]),
+    viewPool () {
+      if (this.deploySteps.four === 2) {
+        this.$router.push('/edit/' + this.currentPool)
+      }
+    }
   },
   mounted () {
     this.deploy(this.pool)
