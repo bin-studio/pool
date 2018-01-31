@@ -1,7 +1,7 @@
 *{
   &, &:after, &:before{
     margin:0;
-    padding:0;  
+    padding:0;
     border-width:inherit;
   }
 }
@@ -60,7 +60,7 @@ html{
 
 .absolute-fill{
   position: absolute;
-  top:0; left:0; 
+  top:0; left:0;
   width:100%; height:100%;
 }
 
@@ -88,10 +88,11 @@ img{
   max-width:100%;
 }
 .bg-img{
-  backround-repeat:no-repeat;
+  background-repeat:no-repeat;
 }
 .bg-img-cover{
-  background-size:cover;
+  background-position: center;
+  background-size: cover;
 }
 .bg-dots{
   background-image: url(../assets/bg-dots.svg);

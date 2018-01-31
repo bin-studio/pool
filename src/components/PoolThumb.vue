@@ -10,7 +10,9 @@
         </div>
       </header>
       <figure class="bg-dots relative">
-        <div class="absolute bg-img bg-img-cover" :style="'background-image:' + thumb" @click="join = false"></div>
+        <div class="absolute top-0 right-0 bottom-0 left-0" @click="join = false">
+          <pool-image :bg="true" :src="pool.heroImage"></pool-image>
+        </div>
         <popout v-show="graph" :pop="graph" class="absolute-fill bg-white">
           <!-- Graph -->
         </popout>
@@ -18,12 +20,12 @@
       <!-- text -->
       <footer class="center border-top">
         <div class="p3">
-          <router-link :to="{name: 'Pool', params: {address: address}}">
-            <h1 class="bold">{{name}}</h1>
+          <router-link :to="{name: 'Pool', params: {address: pool.address}}">
+            <h1 class="bold">{{ pool.name }}</h1>
           </router-link>
-          <div class="mt1" v-html="about"></div>
+          <div class="mt1" v-html="pool.description"></div>
         </div>
-        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{holders}} Supporters</button>
+        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{ pool.holders }} Supporters</button>
       </footer>
     </section>
     <section v-show="join" class="pool__join">
@@ -35,12 +37,14 @@
 </template>
 
 <script>
-import Popout from './Popout'
+import Popout from '@/components/Popout'
+import PoolImage from '@/components/Image'
+
 export default {
   name: 'PoolThumb',
-  props: ['address', 'name', 'symbol', 'type', 'base', 'thumb', 'about', 'holders'],
-  components: {
-    Popout
+  // props: ['address', 'name', 'symbol', 'type', 'base', 'thumb', 'about', 'holders'],
+  props: {
+    pool: { type: Object, required: true }
   },
   data () {
     return {
@@ -55,7 +59,8 @@ export default {
     graph () {
       if (this.graph) this.join = false
     }
-  }
+  },
+  components: { Popout, PoolImage }
 }
 </script>
 
