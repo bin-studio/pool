@@ -1,16 +1,16 @@
 <template>
   <section class="page p4">
-    <pool v-if="pool.address === address" :address="pool.address" :name="pool.name" :symbol="pool.symbol" :type="pool.type" :base="pool.base" :about="pool.about" :holders="pool.holders"></pool>
+    <thumb :pool="pool"></thumb>
   </section>
 </template>
 
 <script>
-import Pool from './PoolThumb'
+import Thumb from './PoolThumb'
 export default {
   name: 'Pool',
   props: ['address'],
   components: {
-    Pool
+    Thumb
   },
   computed: {
     pool () {

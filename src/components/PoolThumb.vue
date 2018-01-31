@@ -1,46 +1,51 @@
 <template>
-  <article>
+  <article class="mb4">
     <section class="border" :class="{'rounded-bottom': !join, 'pool--collapsed': join}">
       <header class="flex justify-between items-stretch border-bottom">
         <div class="col col-9 px2 flex items-center"><span>Jump in the Pool</span></div>
         <div class="col col-3 flex items-stretch bg-dots border-left" @click="graph = !graph">
-          <popout :pop="graph" class="col-12 flex items-center justify-center">
+          <popout :pop="graph" class="col-12 flex items-center justify-center pointer">
             <span>Graph</span>
           </popout>
         </div>
       </header>
       <figure class="bg-dots relative">
-        <div class="absolute bg-img bg-img-cover" :style="'background-image:' + thumb" @click="join = false"></div>
-          <popout v-show="graph" :pop="graph" class="absolute-fill bg-white">
-            <!-- Graph -->
-          </popout>
+        <div class="absolute top-0 right-0 bottom-0 left-0 overflow-hidden" @click="join = false">
+          <pool-image v-show="!graph" :bg="true" :src="pool.heroImage" class="absolute top-0 left-0 col-12"></pool-image>
+        </div>
+        <popout v-show="graph" :pop="graph" class="absolute-fill bg-white">
+          <graph class="absolute-fill"></graph>
+        </popout>
       </figure>
       <!-- text -->
       <footer class="center border-top">
         <div class="p3">
-          <router-link :to="{name: 'Pool', params: {address: address}}">
-            <h1 class="bold">{{name}}</h1>
+          <router-link :to="{name: 'Pool', params: {address: pool.address}}">
+            <h1 class="bold">{{ pool.name }}</h1>
           </router-link>
-          <div class="mt1" v-html="about"></div>
+          <div class="mt1" v-html="pool.description"></div>
         </div>
-        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{holders}} Supporters</button>
+        <button v-show="!join" class="btn block col-12 bg-blue white" @click="join = true">Join {{ pool.holders }} Supporters</button>
       </footer>
     </section>
     <section v-show="join" class="pool__join">
-      <div class="border">
-        <!-- Subscribe -->
+      <div class="border rounded-bottom">
+        <join></join>
       </div>
     </section>
   </article>
 </template>
 
 <script>
-import Popout from './Popout'
+import Popout from '@/components/Popout'
+import Graph from './PoolGraph'
+import Join from './PoolJoin'
+import PoolImage from '@/components/Image'
+
 export default {
   name: 'PoolThumb',
-  props: ['address', 'name', 'symbol', 'type', 'base', 'thumb', 'about', 'holders'],
-  components: {
-    Popout
+  props: {
+    pool: { type: Object, required: true }
   },
   data () {
     return {
@@ -55,7 +60,8 @@ export default {
     graph () {
       if (this.graph) this.join = false
     }
-  }
+  },
+  components: { Popout, Graph, Join, PoolImage }
 }
 </script>
 
@@ -64,18 +70,17 @@ header{
   height:3rem;
 }
 figure{
-  min-height:14.5rem;
-  .bg-img{
-    height:110%;
-    width:110%;
-    top:-5%;
-    left:-5%;
+  padding-bottom:16em;
+  .bg-img-cover{
+    height:100%;
   }
   .pool--collapsed &{
-    min-height:0px;
-    height:5.75rem;
-    & .bg-img{
-      filter:blur(10px);
+    padding-bottom:5.75rem;
+    & .bg-img-cover{
+      filter:blur(4px);
+      height:120%;
+      width:104%;
+      transform:translateX(-2%) translateY(-10%);
     }
   }
 }

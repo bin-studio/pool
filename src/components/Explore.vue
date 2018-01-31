@@ -6,8 +6,8 @@
       <div>Tradeview</div>
       <div>Search</div>
     </nav>
-    <section>
-      <pool v-for="pool in pools" :key="pool.symbol" :address="pool.address" :name="pool.name" :symbol="pool.symbol" :type="pool.type" :base="pool.base" :about="pool.about" :holders="pool.holders"></pool>
+    <section class="mxn2 sm-flex flex-wrap">
+      <pool class="px2 col-12 sm-col-6 lg-col-4" v-for="pool in pools" :key="pool.symbol" :pool="pool"></pool>
     </section>
   </section>
 </template>
@@ -21,19 +21,9 @@ export default {
   components: {
     Pool: PoolThumb
   },
-  data () {
-    return {
-      pools: [
-        {
-          address: '0x0',
-          name: "Billy's Ukelele Covers Klub",
-          symbol: 'BUCK',
-          type: 'linear',
-          base: 'DAI',
-          about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in mi ex. Phasellus fringilla, felis in euismod consequat.',
-          holders: 444
-        }
-      ]
+  computed: {
+    pools () {
+      return this.$store.state.pools
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -41,7 +31,6 @@ export default {
       next()
     })
   }
-  // components: { Upload }
 }
 </script>
 
