@@ -201,25 +201,25 @@ textarea{
   width: calc(100% + 2px) !important;
 
   .vue-slider {
-    border-radius: 0;
-    background: #FCFFA3;
+    border-radius: 0 !important;
+    background: #FCFFA3 !important;
     height: 70px !important;
   }
   .vue-slider-dot {
-    background-image: url(../assets/slider-knob.svg);
-    border-radius: 0;
-    background-color: transparent;
-    box-shadow: none;
-    cursor: pointer;
-    z-index: 3;
+    background-image: url(../assets/slider-knob.svg) !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    z-index: 3 !important;
     height: 75px !important;
     width: 18px !important;
   }
   .vue-slider-process {
-    border-radius: 0;
-    background: #FCFFA3;
-    background-image: url(../assets/bg-dots.svg);
-    background-size:6px 6px;
-    background-position:-4px 4px;
+    border-radius: 0 !important;
+    background: #FCFFA3 !important;
+    background-image: url(../assets/bg-dots.svg) !important;
+    background-size:6px 6px !important;
+    background-position:-4px 4px !important;
   }
 }
