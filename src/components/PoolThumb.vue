@@ -12,7 +12,7 @@
       <figure class="bg-dots relative">
         <div class="absolute bg-img bg-img-cover" :style="'background-image:' + thumb" @click="join = false"></div>
         <popout v-show="graph" :pop="graph" class="absolute-fill bg-white">
-          <!-- Graph -->
+          <graph class="absolute-fill"></graph>
         </popout>
       </figure>
       <!-- text -->
@@ -36,11 +36,13 @@
 
 <script>
 import Popout from './Popout'
+import Graph from './PoolGraph'
 export default {
   name: 'PoolThumb',
   props: ['address', 'name', 'symbol', 'type', 'base', 'thumb', 'about', 'holders'],
   components: {
-    Popout
+    Popout,
+    Graph
   },
   data () {
     return {
@@ -64,7 +66,7 @@ header{
   height:3rem;
 }
 figure{
-  min-height:14.5rem;
+  padding-bottom:16em;
   .bg-img{
     height:110%;
     width:110%;
@@ -72,8 +74,7 @@ figure{
     left:-5%;
   }
   .pool--collapsed &{
-    min-height:0px;
-    height:5.75rem;
+    padding-bottom:5.75rem;
     & .bg-img{
       filter:blur(10px);
     }
