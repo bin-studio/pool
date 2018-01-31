@@ -2,7 +2,7 @@
   <section>
     <div class="line-height-3">
       <h1>Step 1 of 2</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in mi ex. Phasellus fringilla, felis in euismod consequat, ex augue sollicitudin ante, in venenatis nunc. Sollicitudin ante, in venenatis nunc sollicitudin ante, in venenatis nunc.</p>
+      <p>The price rates allow you to choose the growth model for your token. 'None' provides a flat donation-like model, whereas 'Slow' and 'Fast' allow for value growth as your token rises in popularity.</p>
     </div>
     <div class="border mt3">
       <!-- name -->
