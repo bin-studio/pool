@@ -2,9 +2,9 @@
   <article class="page p4">
     <div class="max-width-4 mx-auto border">
       <header class="bold clearfix">
-        <div class="col col-4 px2 py1">{{pool.symbol}}&nbsp;</div>
-        <div class="col col-4 px2 py1 border-left">{{pool.type}}&nbsp;</div>
-        <div class="col col-4 px2 py1 border-left">{{pool.base}}&nbsp;</div>
+        <div class="col col-4 px2 py1 line-height-3">{{pool.symbol}}&nbsp;</div>
+        <div class="col col-4 px2 py1 border-left line-height-3">{{pool.type}}&nbsp;</div>
+        <div class="col col-4 px2 py1 border-left line-height-3">{{pool.base}}&nbsp;</div>
       </header>
       <section class="px2 py3 border-top">
         <div>
@@ -21,7 +21,7 @@
       <footer>
         <div class="clearfix border-top">
           <button class="btn block col col-6" @click="$router.go(-1)">Cancel</button>
-          <button class="btn block col col-6 bg-blue white" @click="submit">Save</button>
+          <button class="btn block col col-6 bg-blue white" @click="submit">{{ saveText }}</button>
         </div>
       </footer>
     </div>
@@ -37,7 +37,8 @@ export default {
   name: 'EditPool',
   data () {
     return {
-      newPool: {}
+      newPool: {},
+      saveText: 'Save'
     }
   },
   computed: {
@@ -61,7 +62,13 @@ export default {
       this.newPool = JSON.parse(JSON.stringify(this.pool))
     },
     submit () {
-      this.$store.dispatch('updateContract', this.newPool)
+      this.saveText = 'Saving...'
+      this.$store.dispatch('updateContract', this.newPool).then(() => {
+        this.saveText = 'Done!'
+        setTimeout(() => {
+          this.saveText = 'Save'
+        }, 2000)
+      })
     }
   },
   created () {

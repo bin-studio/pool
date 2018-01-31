@@ -54,9 +54,11 @@ export default {
         // save image upstairs
         this.contract[this.imageType] = data.secure_url
         this.uploading = false
+        this.progress = 0
       }).catch((err) => {
         console.log(err)
         this.uploading = false
+        this.progress = 0
       })
     },
 

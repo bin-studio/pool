@@ -4,7 +4,7 @@
       <header class="flex justify-between items-stretch border-bottom">
         <div class="col col-6 px2 flex items-center"><span>Jump in the Pool</span></div>
         <!-- edit button -->
-        <router-link :to="{name: 'Edit Pool', params: {address: pool.address}}" class="block col col-3 flex items-center border-left justify-center">
+        <router-link v-if="isOwner" :to="{name: 'Edit Pool', params: {address: pool.address}}" class="block col col-3 flex items-center border-left justify-center">
           <span>Edit</span>
         </router-link>
         <!-- trade button -->
@@ -58,6 +58,11 @@ export default {
     return {
       trade: false,
       join: false
+    }
+  },
+  computed: {
+    isOwner () {
+      return this.$store.state.account === this.pool.ownerAddress
     }
   },
   watch: {
