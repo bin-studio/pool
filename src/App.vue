@@ -2,9 +2,9 @@
   <div id="app" class="blue">
     <header class="fixed z1 top-0 left-0 right-0 pt4 px4 pb0 bg-white border-box">
       <div class="flex flex-wrap items-center border-top border-bottom">
-        <div class="col-12 flex justify-between items-center">
+        <div class="col-12 flex justify-between items-center p1">
           <template v-if="$route.name == 'Landing'">
-            <h1 class="h1">Pool</h1>
+            <h1 class="h00">Pool</h1>
           </template>
           <template v-else>
             <div class="col col-2">
@@ -42,20 +42,19 @@ export default {
   @import 'style/global';
 
   #app > header > div{
-    height:6rem;
+    height:5rem;
   }
 
   header h1 {
     font-weight: 400;
-    font-size: 3em !important;
   }
 
   #app .page{
-    box-sizing:border-box;
-    min-height:100vh;
-    padding-top:10rem;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding-top: 8.5rem;
   }
   #app .page-feed{
-    padding-top:8rem;
+    padding-top: 8rem;
   }
 </style>
