@@ -183,7 +183,7 @@ export default {
     })
   },
   deployContract ({state, commit}, poolAddress = state.poolAddress) {
-    console.log('deploy contract!')
+    console.log('deploy contract!', poolAddress)
     if (poolAddress) {
       poolContract = new global.web3.eth.Contract(PoolContractArtifacts.abi, poolAddress)
       baseContract = new global.web3.eth.Contract(ERC20ContractArtifacts.abi, state.pool.baseToken)
@@ -198,10 +198,14 @@ export default {
     return poolContract.methods[functionName].send(...parameters)
   },
   mint: async ({state}, amount) => {
-    console.log(poolContract)
     if (!poolContract) return
+    var beforeBalance = await poolContract.balanceOf(state.account).call()
+    console.log(beforeBalance.toString())
     var tx = await poolContract.methods.mint(state.account, amount).send({from: state.account})
     console.log(tx)
+
+    var afterBalance = await poolContract.balanceOf(state.account).call()
+    console.log(afterBalance.toString())
   },
   unmint ({commit}, amount) {
 
