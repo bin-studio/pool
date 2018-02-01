@@ -54,6 +54,9 @@
           <div class="mt1 overflow-hidden">{{DAIvalue}}</div>
         </div>
       </div>
+      <div id="sliders" class="bg-dots">
+        <vue-slider v-show="mode" class="no-pop" ref="sliderBuySell" v-bind="sliders.buySell" v-model="amount"></vue-slider>
+      </div>
       <button v-show="mode === 'buy'" class="btn block trade__row bg-blue white col-12">Confirm</button>
       <button v-show="mode === 'sell'" class="btn block trade__row bg-blue white col-12">Confirm</button>
     </footer>
@@ -62,6 +65,7 @@
 
 <script>
 import moment from 'moment'
+import vueSlider from 'vue-slider-component'
 import {mapState} from 'vuex'
 export default {
   name: 'Trade',
@@ -74,7 +78,14 @@ export default {
       supporters: 0,
       price: 0,
       yourBalance: 0,
-      poolBalance: 0
+      poolBalance: 0,
+      sliders: {
+        buySell: {
+          tooltip: 'never',
+          min: 1,
+          max: 200
+        }
+      }
     }
   },
   computed: {
@@ -97,8 +108,12 @@ export default {
   methods: {
     tab (tab) {
       this.mode = this.mode === tab ? null : tab
+      this.$nextTick(() => {
+        this.$refs.sliderBuySell.refresh()
+      })
     }
-  }
+  },
+  components: { vueSlider }
 }
 </script>
 

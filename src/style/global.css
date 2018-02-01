@@ -208,6 +208,11 @@ textarea{
   transform: translateX(6px) translateY(-8px) !important;
   width: calc(100% + 2px) !important;
 
+  &.no-pop {
+    width: calc(100% + 1px) !important;
+    transform: translateX(0) translateY(0) !important;
+  }
+
   .vue-slider {
     border-radius: 0 !important;
     background: #FCFFA3 !important;
