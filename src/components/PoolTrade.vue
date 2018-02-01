@@ -51,31 +51,32 @@
         <div class="flex-item-fill trade__row flex items-center justify-center border-left pointer" @click="tab('sell')" :class="{'bg-blue white': mode === 'sell'}"><span>Sell</span></div>
       </nav>
       <!-- buy -->
-      <div v-show="mode === 'buy'" class="flex justify-between border-top">
-        <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div class="bold">{{pool.base}}</div>
-          <div class="bold"><input type="number" class="input-number" v-model="buyAmount"></div>
+      <div v-show="mode === 'buy'">
+        <div class="flex justify-between border-top">
+          <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
+            <div class="bold">{{pool.base}}</div>
+            <div class="bold"><input type="number" class="input-number" v-model="buyAmount"></div>
+          </div>
+          <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
+            <div class="flex justify-between items-center"><span>Receive {{pool.symbol}}</span></div>
+            <div class="bold" v-text="buyEstimate"></div>
+          </div>
         </div>
-        <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div class="flex justify-between items-center"><span>Receive {{pool.symbol}}</span></div>
-          <div class="bold" v-text="buyAmountToTokens"></div>
-        </div>
+        <vue-slider class="no-pop" ref="sliderBuy" v-bind="sliders.buy" v-model="buyAmount"></vue-slider>
       </div>
       <!-- sell -->
-      <div v-show="mode === 'sell'" class="flex justify-between border-top">
-        <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div class="flex justify-between items-center"><span class="bold">{{pool.symbol}}</span></div>
-          <div class="bold"><input type="number" class="input-number" v-model="sellAmount"></div>
+      <div v-show="mode === 'sell'">
+        <div class="flex justify-between border-top">
+          <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
+            <div class="flex justify-between items-center"><span class="bold">{{pool.symbol}}</span></div>
+            <div class="bold"><input type="number" class="input-number" v-model="sellAmount"></div>
+          </div>
+          <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
+            <div>Receive {{pool.base}}</div>
+            <div class="bold" v-text="sellEstimate"></div>
+          </div>
         </div>
-        <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div>Receive {{pool.base}}</div>
-          <div class="bold" v-text="sellAmountToDAI"></div>
-        </div>
-      </div>
-      <!-- sliders -->
-      <div id="sliders">
-        <vue-slider v-show="mode === 'buy'" class="no-pop" ref="sliderBuy" v-bind="sliders.buy" v-model="buyAmount"></vue-slider>
-        <vue-slider v-show="mode === 'sell'" class="no-pop" ref="sliderSell" v-bind="sliders.sell" v-model="sellAmount"></vue-slider>
+        <vue-slider class="no-pop" ref="sliderSell" v-bind="sliders.sell" v-model="sellAmount"></vue-slider>
       </div>
       <button v-if="mode" @click="confirm()" class="btn block trade__row bg-blue white col-12">Confirm</button>
     </footer>
@@ -94,18 +95,15 @@ export default {
       loading: true,
       mode: null,
       buyAmount: 1,
-      DAIvalue: 1,
+      sellAmount: 1,
       totalSupply: 230,
       totalEverMinted: 2500,
       supporters: 323120,
       price: 130,
       yourBalance: 230,
       poolBalance: 1000,
-
-      sellAmount: 1,
       currentDAI: 210, // get from chain
       currentTokens: 20, // get from chain
-
       sliders: {
         buy: {
           tooltip: 'never',
@@ -126,13 +124,10 @@ export default {
     age () {
       return moment(this.pool.createdAt).fromNow()
     },
-    symbol () {
-      return this.pool.symbol
+    buyEstimate () {
+      return this.convertFromDAI(this.buyAmount) - this.currentTokens
     },
-    buyAmountToTokens () {
-      return this.convertFromDAI(this.buyAmount)
-    },
-    sellAmountToDAI () {
+    sellEstimate () {
       return this.convertToDAI(this.sellAmount)
     }
   },
@@ -151,9 +146,9 @@ export default {
     },
     confirm () {
       if (this.mode === 'buy') {
-        this.mint(this.DAIvalue)
+        this.mint(this.buyAmount)
       } else if (this.mode === 'sell') {
-        this.unmint(this.amount)
+        this.unmint(this.sellAmount)
       }
     },
     tab (tab) {
