@@ -199,13 +199,15 @@ export default {
   },
   mint: async ({state}, amount) => {
     if (!poolContract) return
-    var beforeBalance = await poolContract.balanceOf(state.account).call()
-    console.log(beforeBalance.toString())
-    var tx = await poolContract.methods.mint(state.account, amount).send({from: state.account})
-    console.log(tx)
+    console.log(poolContract)
+    // var beforeBalance = await poolContract.balanceOf(state.account).call()
+    // console.log(beforeBalance.toString())
 
-    var afterBalance = await poolContract.balanceOf(state.account).call()
-    console.log(afterBalance.toString())
+    // var tx = await poolContract.methods.mint(state.account, amount).send({from: state.account})
+    // console.log(tx)
+
+    // var afterBalance = await poolContract.balanceOf(state.account).call()
+    // console.log(afterBalance.toString())
   },
   unmint ({commit}, amount) {
 

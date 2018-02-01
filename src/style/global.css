@@ -110,6 +110,14 @@ img{
   right:3rem;
 }
 
+button, .btn{
+  &:focus{
+    outline:none;
+    box-shadow:none;
+    border:none;
+  }
+}
+
 input{
   border:none;
   color:inherit;
@@ -183,6 +191,15 @@ textarea{
   &:focus{
     outline:none;
   }
+}
+
+.quickfade-enter-active,
+.quickfade-leave-active{
+  transition: opacity 300ms;
+}
+.quickfade-enter,
+.quickfade-leave-to{
+  opacity:0;
 }
 
 @keyframes spin{

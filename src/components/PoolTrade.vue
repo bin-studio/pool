@@ -1,8 +1,10 @@
 <template>
   <article class="relative flex flex-column justify-between">
-    <div v-show="loading" class="absolute-fill bg-white z3 flex items-center justify-center">
-      <div class="icon icon-loading-1"></div>
-    </div>
+    <transition name="quickfade">
+      <div v-show="loading" class="absolute-fill bg-white z3 flex items-center justify-center">
+        <div class="icon icon-loading-1"></div>
+      </div>
+    </transition>
     <header class="border-bottom bold">
       <div class="col col-4 py1 px2 uppercase">{{pool.symbol}}&nbsp;</div>
       <div class="col col-4 py1 px2 border-left capitalize">{{pool.type}}&nbsp;</div>
