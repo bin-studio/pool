@@ -193,6 +193,15 @@ textarea{
   }
 }
 
+.quickfade-enter-active,
+.quickfade-leave-active{
+  transition: opacity 300ms;
+}
+.quickfade-enter,
+.quickfade-leave-to{
+  opacity:0;
+}
+
 @keyframes spin{
   from{
     transform:rotate(0deg);
