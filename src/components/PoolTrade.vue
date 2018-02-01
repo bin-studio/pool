@@ -1,9 +1,12 @@
 <template>
-  <article class="flex flex-column justify-between">
+  <article class="relative flex flex-column justify-between">
+    <div v-show="loading" class="absolute-fill bg-white z3 flex items-center justify-center">
+      <div class="icon icon-loading-1"></div>
+    </div>
     <header class="border-bottom bold">
-      <div class="col col-4 py1 px2 uppercase">{{pool.symbol}}</div>
-      <div class="col col-4 py1 px2 border-left">{{pool.type}}</div>
-      <div class="col col-4 py1 px2 border-left">{{pool.base}}</div>
+      <div class="col col-4 py1 px2 uppercase">{{pool.symbol}}&nbsp;</div>
+      <div class="col col-4 py1 px2 border-left capitalize">{{pool.type}}&nbsp;</div>
+      <div class="col col-4 py1 px2 border-left">{{pool.base}}&nbsp;</div>
     </header>
     <figure class="trade__figure relative flex-item-fill">
       <div class="absolute top-0 left-0 py1 px2 z2">Supply {{totalSupply}} of {{totalEverMinted}}</div>
@@ -47,18 +50,18 @@
       <div v-show="mode !== null" class="flex justify-between border-top">
         <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
           <div class="bold flex justify-between items-center"><span>{{pool.symbol}}</span><span>⇄</span></div>
-          <div class="bold"><input type="number" class="input-number" v-model="amount"></div>
+          <div class="bold"><input :readonly="mode === 'buy'" type="number" class="input-number" v-model="amount"></div>
         </div>
         <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div>DAI</div>
-          <div class="mt1 overflow-hidden">{{DAIvalue}}</div>
+          <div>{{pool.base}}</div>
+          <div class="bold"><input :readonly="mode === 'sell'"  type="number" class="input-number" v-model="DAIvalue"></div>
+<!--           <div class="mt1 overflow-hidden">{{DAIvalue}}</div> -->
         </div>
       </div>
       <div id="sliders" class="bg-dots">
         <vue-slider v-show="mode" class="no-pop" ref="sliderBuySell" v-bind="sliders.buySell" v-model="amount"></vue-slider>
       </div>
-      <button v-show="mode === 'buy'" class="btn block trade__row bg-blue white col-12">Confirm</button>
-      <button v-show="mode === 'sell'" class="btn block trade__row bg-blue white col-12">Confirm</button>
+      <button v-if="mode" @click="confirm()" class="btn block trade__row bg-blue white col-12">Confirm</button>
     </footer>
   </article>
 </template>
@@ -66,13 +69,16 @@
 <script>
 import moment from 'moment'
 import vueSlider from 'vue-slider-component'
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
   name: 'Trade',
+  props: ['address'],
   data () {
     return {
+      loading: true,
       mode: null,
       amount: 1,
+      DAIvalue: 1,
       totalSupply: 0,
       totalEverMinted: 0,
       supporters: 0,
@@ -93,9 +99,6 @@ export default {
     age () {
       return moment(this.pool.createdAt).fromNow()
     },
-    DAIvalue () {
-      return this.amount
-    },
     symbol () {
       return this.pool.symbol
     }
@@ -103,9 +106,35 @@ export default {
   watch: {
     amount () {
       this.amount = this.amount < 0 ? 0 : this.amount
+      this.DAIvalue = this.convertToDAI(this.amount)
+    },
+    DAIvalue () {
+      this.amount = this.convertFromDAI(this.DAIvalue)
     }
   },
   methods: {
+    ...mapActions([
+      'mint',
+      'unmint',
+      'deployContract'
+    ]),
+    convertToDAI (amount) {
+      if (this.poolBalance === 0) {
+        return amount
+      }
+    },
+    convertFromDAI (amount) {
+      if (this.poolBalance === 0) {
+        return amount
+      }
+    },
+    confirm () {
+      if (this.mode === 'buy') {
+        this.mint(this.DAIvalue)
+      } else if (this.mode === 'sell') {
+        this.unmint(this.amount)
+      }
+    },
     tab (tab) {
       this.mode = this.mode === tab ? null : tab
       this.$nextTick(() => {
@@ -113,7 +142,13 @@ export default {
       })
     }
   },
-  components: { vueSlider }
+  components: { vueSlider },
+  created () {
+    this.$store.dispatch('getPoolDb', this.address).then(() => {
+      this.deployContract(this.address)
+      setTimeout(() => { this.loading = false }, 200)
+    })
+  }
 }
 </script>
 

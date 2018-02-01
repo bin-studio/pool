@@ -1,6 +1,6 @@
 <template>
   <article class="mb4">
-    <section class="border" :class="{'rounded-bottom': !join, 'pool--collapsed': join}">
+    <section class="border" :class="{'rounded-bottom': !join}">
       <header class="flex justify-between items-stretch border-bottom">
         <div class="col col-6 px2 flex items-center bold uppercase"><span>{{pool.symbol}}</span></div>
         <!-- edit button -->
@@ -15,12 +15,12 @@
         </div>
       </header>
       <!-- image / trade view -->
-      <figure class="bg-dots relative">
+      <figure class="bg-dots relative" :class="{'pool__figure--collapsed': join, 'pool__figure--trade': trade}">
         <div class="absolute top-0 right-0 bottom-0 left-0 overflow-hidden" @click="join = false">
           <pool-image v-show="!trade" :bg="true" :src="pool.heroImage" class="absolute top-0 left-0 col-12"></pool-image>
         </div>
         <popout v-show="trade" :pop="trade" class="bg-white">
-          <trade></trade>
+          <trade v-if="trade" :address="pool.address"></trade>
         </popout>
       </figure>
       <!-- text -->
@@ -67,6 +67,9 @@ export default {
     joinLabel () {
       if (this.pool.holders > 0) return `Join ${this.pool.holders} Supporters`
       return 'Support'
+    },
+    activePoolAddr () {
+      return this.$store.state.pool.address
     }
   },
   methods: {
@@ -81,6 +84,9 @@ export default {
     },
     trade () {
       if (this.trade) this.join = false
+    },
+    activePoolAddr (addr) {
+      if (addr !== this.pool.address) this.trade = false
     }
   },
   components: { Popout, Trade, PoolJoin, PoolImage }
@@ -92,19 +98,21 @@ header{
   height:3rem;
 }
 figure{
-  min-height:16em;
+  padding-bottom:calc(800/1280 * 100%);
   .bg-img-cover{
     height:100%;
   }
-  .pool--collapsed &{
-    min-height:0;
-    height:5.75rem;
+  &.pool__figure--collapsed{
+    padding-bottom:5.75rem;
     & .bg-img-cover{
       filter:blur(4px);
       height:120%;
       width:104%;
       transform:translateX(-2%) translateY(-10%);
     }
+  }
+  &.pool__figure--trade{
+    padding-bottom:0;
   }
 }
 .pool__join{

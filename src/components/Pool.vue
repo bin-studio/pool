@@ -1,7 +1,6 @@
 <template>
   <section class="page p4">
-    <thumb :pool="pool"></thumb>
-    <!-- <upload :contract="pool" image-type="heroImage"></upload> -->
+    <thumb :pool="pool" class="max-width-3 mx-auto"></thumb>
   </section>
 </template>
 
