@@ -24,6 +24,13 @@
         </popout>
       </figure>
       <!-- text -->
+      <nav v-if="hasLinks">
+        <ul class="list-reset flex flex-wrap m0">
+          <li v-for="link in pool.links" :key="link.id" class="flex-fill center border-top">
+            <a :href="link.url" class="block p2" target="_blank" rel="nofollow">{{ link.text }}</a>
+          </li>
+        </ul>
+      </nav>
       <footer class="center border-top">
         <div class="p3">
           <router-link :to="{name: 'Pool', params: {address: pool.address}}">
@@ -70,6 +77,9 @@ export default {
     },
     activePoolAddr () {
       return this.$store.state.pool.address
+    },
+    hasLinks () {
+      return this.pool.links && this.pool.links.length > 0
     }
   },
   methods: {
@@ -124,5 +134,11 @@ figure{
     border-right-style:solid;
     border-width:1px;
   }
+}
+.flex-fill{
+  flex:1 0 25%;
+}
+.flex-fill + .flex-fill {
+  border-left: 1px solid;
 }
 </style>
