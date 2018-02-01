@@ -43,23 +43,37 @@
           <div class="bold mt1">${{poolBalance}}</div>
         </div>
       </div>
+      <!-- buy / sell btns -->
       <nav class="flex justify-between border-top">
         <div class="flex-item-fill trade__row flex items-center justify-center pointer" @click="tab('buy')" :class="{'bg-blue white': mode === 'buy'}"><span>Buy</span></div>
         <div class="flex-item-fill trade__row flex items-center justify-center border-left pointer" @click="tab('sell')" :class="{'bg-blue white': mode === 'sell'}"><span>Sell</span></div>
       </nav>
-      <div v-show="mode !== null" class="flex justify-between border-top">
+      <!-- buy -->
+      <div v-show="mode === 'buy'" class="flex justify-between border-top">
         <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div class="bold flex justify-between items-center"><span>{{pool.symbol}}</span><span>⇄</span></div>
-          <div class="bold"><input :readonly="mode === 'buy'" type="number" class="input-number" v-model="amount"></div>
+          <div class="bold">{{pool.base}}</div>
+          <div class="bold"><input type="number" class="input-number" v-model="buyAmount"></div>
         </div>
         <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
-          <div>{{pool.base}}</div>
-          <div class="bold"><input :readonly="mode === 'sell'"  type="number" class="input-number" v-model="DAIvalue"></div>
-<!--           <div class="mt1 overflow-hidden">{{DAIvalue}}</div> -->
+          <div class="flex justify-between items-center"><span>Receive {{pool.symbol}}</span></div>
+          <div class="bold" v-text="buyAmountToTokens"></div>
         </div>
       </div>
-      <div id="sliders" class="bg-dots">
-        <vue-slider v-show="mode" class="no-pop" ref="sliderBuySell" v-bind="sliders.buySell" v-model="amount"></vue-slider>
+      <!-- sell -->
+      <div v-show="mode === 'sell'" class="flex justify-between border-top">
+        <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
+          <div class="flex justify-between items-center"><span class="bold">{{pool.symbol}}</span></div>
+          <div class="bold"><input type="number" class="input-number" v-model="sellAmount"></div>
+        </div>
+        <div class="trade__row p2 flex-item-fill col col-4 flex flex-column justify-between">
+          <div>Receive {{pool.base}}</div>
+          <div class="bold" v-text="sellAmountToDAI"></div>
+        </div>
+      </div>
+      <!-- sliders -->
+      <div id="sliders">
+        <vue-slider v-show="mode === 'buy'" class="no-pop" ref="sliderBuy" v-bind="sliders.buy" v-model="buyAmount"></vue-slider>
+        <vue-slider v-show="mode === 'sell'" class="no-pop" ref="sliderSell" v-bind="sliders.sell" v-model="sellAmount"></vue-slider>
       </div>
       <button v-if="mode" @click="confirm()" class="btn block trade__row bg-blue white col-12">Confirm</button>
     </footer>
@@ -77,20 +91,31 @@ export default {
     return {
       loading: true,
       mode: null,
-      amount: 1,
+      buyAmount: 1,
       DAIvalue: 1,
-      totalSupply: 0,
-      totalEverMinted: 0,
-      supporters: 0,
-      price: 0,
-      yourBalance: 0,
-      poolBalance: 0,
+      totalSupply: 230,
+      totalEverMinted: 2500,
+      supporters: 323120,
+      price: 130,
+      yourBalance: 230,
+      poolBalance: 1000,
+
+      sellAmount: 1,
+      currentDAI: 210, // get from chain
+      currentTokens: 20, // get from chain
+
       sliders: {
-        buySell: {
+        buy: {
           tooltip: 'never',
           min: 1,
-          max: 200
+          max: 210
+        },
+        sell: {
+          tooltip: 'never',
+          min: 1,
+          max: 20
         }
+
       }
     }
   },
@@ -101,15 +126,12 @@ export default {
     },
     symbol () {
       return this.pool.symbol
-    }
-  },
-  watch: {
-    amount () {
-      this.amount = this.amount < 0 ? 0 : this.amount
-      this.DAIvalue = this.convertToDAI(this.amount)
     },
-    DAIvalue () {
-      this.amount = this.convertFromDAI(this.DAIvalue)
+    buyAmountToTokens () {
+      return this.convertFromDAI(this.buyAmount)
+    },
+    sellAmountToDAI () {
+      return this.convertToDAI(this.sellAmount)
     }
   },
   methods: {
@@ -119,14 +141,11 @@ export default {
       'deployContract'
     ]),
     convertToDAI (amount) {
-      if (this.poolBalance === 0) {
-        return amount
-      }
+      var t = this.currentTokens - amount
+      return this.currentDAI - (t * (t + 1)) / 2
     },
     convertFromDAI (amount) {
-      if (this.poolBalance === 0) {
-        return amount
-      }
+      return ((-1 + Math.sqrt(1 + 8 * (this.currentDAI + amount))) / 2)
     },
     confirm () {
       if (this.mode === 'buy') {
@@ -138,7 +157,8 @@ export default {
     tab (tab) {
       this.mode = this.mode === tab ? null : tab
       this.$nextTick(() => {
-        this.$refs.sliderBuySell.refresh()
+        this.$refs.sliderBuy.refresh()
+        this.$refs.sliderSell.refresh()
       })
     }
   },
