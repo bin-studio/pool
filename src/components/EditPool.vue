@@ -1,6 +1,6 @@
 <template>
   <article class="page p4">
-    <div class="max-width-4 mx-auto border">
+    <div class="max-width-3 mx-auto border">
       <header class="bold clearfix">
         <div class="col col-4 px2 py1 line-height-3">{{pool.symbol}}&nbsp;</div>
         <div class="col col-4 px2 py1 border-left line-height-3 capitalize">{{pool.type}}&nbsp;</div>
