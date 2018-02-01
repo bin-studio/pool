@@ -15,6 +15,12 @@ export default {
   UPDATE_ACCOUNT (state, account) {
     state.account = account
   },
+  LOGGED_IN (state) {
+    state.loggedIn = true
+  },
+  LOGGED_OUT (state) {
+    state.loggedIn = false
+  },
   INC_DEPLOY_STEP (state, step) {
     state.deploySteps[step]++
   },

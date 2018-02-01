@@ -53,16 +53,23 @@ export default {
       }
     })
   },
-  checkAccount ({state, commit}) {
+  checkAccount ({state, commit, dispatch}) {
     return global.web3.eth.getAccounts((error, accounts) => {
       if (error) throw new Error(error)
       if (accounts.length && state.account !== accounts[0]) {
         commit('UPDATE_UNLOCKED', true)
         commit('UPDATE_ACCOUNT', accounts[0])
+        dispatch('login')
       } else if (!accounts.length) {
         commit('UPDATE_UNLOCKED', false)
         commit('UPDATE_ACCOUNT', null)
+        commit('LOGGED_OUT')
       }
+    })
+  },
+  login ({ state, commit }) {
+    return axios.post(apiUrl('/users'), { address: state.account }).then(({ data }) => {
+      commit('LOGGED_IN')
     })
   },
   subscribe: async ({state, commit}, joinData) => {
@@ -71,10 +78,30 @@ export default {
     console.log(baseContract)
     let balance = await baseContract.methods.balanceOf(state.account).call()
     let allowed = await baseContract.methods.allowance(state.account, state.pool.address).call()
-    console.log(balance)
-    console.log(allowed)
+    console.log('base balance', utils.fromWei(balance))
+    console.log('base allowed', utils.fromWei(allowed))
     let totalAllowed = utils.toWei(utils.toBN(joinData.amount)).mul(utils.toBN(joinData.duration))
-    console.log(totalAllowed.toString())
+    console.log('new allowed amount', utils.fromWei(totalAllowed))
+    console.log(utils.toBN(balance))
+    if (!totalAllowed.gt(allowed)) {
+      console.log('not enough')
+      let tx1 = await baseContract.methods.approve(state.pool.address, totalAllowed).send({from: state.account})
+      console.log('tx1', tx1)
+    }
+
+    let interval = utils.toBN(1 * 60 * 60 * 24 * 7 * 4)
+    let tx2 = await poolContract.methods.subscribe(
+      state.account,
+      totalAllowed,
+      interval,
+      utils.toBN(joinData.share)
+    ).send({from: state.account, value: utils.toWei('0.0001')})
+    console.log('tx2', tx2)
+    let newBalance = await baseContract.methods.balanceOf(state.account).call()
+    console.log('base newBalance', utils.fromWei(newBalance).toString())
+    let newBondBalance = await poolContract.methods.balanceOf(state.account).call()
+    console.log('bond newBalance', utils.fromWei(newBondBalance).toString())
+
     // if (totalAllowed.sub())
     // function subscribe (address patron, uint256 amount, uint256 interval, uint256 percentToPatron) public payable {
   },
@@ -169,6 +196,12 @@ export default {
   callTransaction ({commit}, functionName, parameters) {
     if (!poolContract) return Promise((resolve, reject) => { resolve() })
     return poolContract.methods[functionName].send(...parameters)
+  },
+  mint ({commit}) {
+
+  },
+  unmint ({commit}) {
+
   },
   getBondBalance ({commit}) {
     if (!poolContract) return
