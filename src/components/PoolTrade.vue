@@ -104,7 +104,8 @@ export default {
   methods: {
     ...mapActions([
       'mint',
-      'unmint'
+      'unmint',
+      'deployContract'
     ]),
     convertToDAI (amount) {
       if (this.poolBalance === 0) {
@@ -118,9 +119,9 @@ export default {
     },
     confirm () {
       if (this.mode === 'buy') {
-        this.mint()
+        this.mint(this.DAIvalue)
       } else if (this.mode === 'sell') {
-        this.unmint()
+        this.unmint(this.amount)
       }
     },
     tab (tab) {
@@ -129,6 +130,7 @@ export default {
   },
   created () {
     this.$store.dispatch('getPoolDb', this.address).then(() => {
+      this.deployContract(this.address)
       setTimeout(() => { this.loading = false }, 200)
     })
   }
