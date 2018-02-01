@@ -24,7 +24,7 @@
           <div class="relative col col-8 px2 py1 border-left">
             <div>URL</div>
             <div class="bold mt2"><input class="col-12 block" type="url" v-model="link.url"></div>
-            <div class="absolute top-0 right-0 py1 px2" @click="removeLink(index)">Remove</div>
+            <div class="absolute top-0 right-0 py1 px2 pointer" @click="removeLink(index)">Remove</div>
           </div>
         </div>
         <div class="border-top">

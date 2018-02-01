@@ -110,6 +110,14 @@ img{
   right:3rem;
 }
 
+button, .btn{
+  &:focus{
+    outline:none;
+    box-shadow:none;
+    border:none;
+  }
+}
+
 input{
   border:none;
   color:inherit;
