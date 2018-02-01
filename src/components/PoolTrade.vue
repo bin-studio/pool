@@ -113,9 +113,9 @@ export default {
     },
     confirm () {
       if (this.mode === 'buy') {
-        this.mint()
+        this.mint(this.DAIvalue)
       } else if (this.mode === 'sell') {
-        this.unmint()
+        this.unmint(this.amount)
       }
     },
     tab (tab) {

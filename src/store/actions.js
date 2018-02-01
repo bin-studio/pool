@@ -197,10 +197,13 @@ export default {
     if (!poolContract) return Promise((resolve, reject) => { resolve() })
     return poolContract.methods[functionName].send(...parameters)
   },
-  mint ({commit}) {
-
+  mint: async ({state}, amount) => {
+    console.log(poolContract)
+    if (!poolContract) return
+    var tx = await poolContract.methods.mint(state.account, amount).send({from: state.account})
+    console.log(tx)
   },
-  unmint ({commit}) {
+  unmint ({commit}, amount) {
 
   },
   getBondBalance ({commit}) {
