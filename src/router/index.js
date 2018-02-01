@@ -58,7 +58,8 @@ export default new Router({
       props: true,
       meta: {
         type: 'page',
-        title: 'Pool'
+        title: 'Pool',
+        back: '/pools'
       }
     },
     {
@@ -68,7 +69,8 @@ export default new Router({
       props: true,
       meta: {
         type: 'page',
-        title: 'Edit'
+        title: 'Edit',
+        back: '/pools'
       }
     }
   ]
