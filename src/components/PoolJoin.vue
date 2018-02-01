@@ -3,7 +3,7 @@
     <header class="border-bottom clearfix">
       <div class="bg-dots col col-4">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('give')" :pop="edit === 'give'">
-          <div>Give</div>
+          <div>Mint</div>
           <div class="relative">
             <span class="absolute left-0 bottom-0">$</span><input class="block col-12 pl2 input-number" type="number" v-model="join.amount" min="1" @focus="tab('give', false)" @click.stop="stopProp">
           </div>
@@ -17,7 +17,7 @@
       </div>
       <div class="bg-dots col col-4 border-left">
         <popout class="tbl-row p2 flex flex-column justify-between" @click="tab('share')" :pop="edit === 'share'">
-          <div>Creator's share</div>
+          <div>Donate</div>
           <div><input type="number" class="input-number input-number--3digits" v-model="join.share" @focus="tab('share', false)" @click.stop="stopProp">%</div>
         </popout>
       </div>
