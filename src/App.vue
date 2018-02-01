@@ -8,7 +8,8 @@
           </template>
           <template v-else>
             <div class="col col-2">
-              <a class="icon icon-back block pointer" @click="$router.go(-1)"></a>
+              <router-link v-if="backLink" :to="backLink" class="icon icon-back block pointer"></router-link>
+              <a v-else class="icon icon-back block pointer" @click="$router.go(-1)"></a>
             </div>
             <div class="col col-8 center h1">{{$route.meta.title}}</div>
           </template>
@@ -40,6 +41,11 @@ export default {
   data () {
     return {
       menu: false
+    }
+  },
+  computed: {
+    backLink () {
+      return this.$route.meta.back
     }
   },
   watch: {
