@@ -2,7 +2,7 @@
   <section>
     <div class="line-height-3">
       <h1>Step 1 of 2</h1>
-      <p>The price rates allow you to choose the growth model for your token. 'None' provides a flat donation-like model, whereas 'Slow' and 'Fast' allow for value growth as your token rises in popularity.</p>
+      <p>The price rates allow you to choose the growth model for your token. 'Flat' provides a donation-like model, whereas 'Linear' and 'Exponential' allow for value growth as your token rises in popularity.</p>
     </div>
     <div class="border mt3">
       <!-- name -->
@@ -21,20 +21,20 @@
         <div class="clearfix center mt4">
           <!-- disabled -->
           <div class="col col-4 px1 opacity-qrtr">
-            <img src="./graph--flat.svg" alt="Graph: None">
-            <label class="block mt1 mb2" for="graphChoice1">None</label>
+            <img src="./graph--flat.svg" alt="Graph: Flat">
+            <label class="block mt1 mb2" for="graphChoice1">Flat</label>
             <input class="radio-btn" type="radio" value="flat" v-model="pool.graph" id="graphChoice1" disabled>
           </div>
-          <div class="col col-4 px1" @click="$emit('graph', 'slow')">
+          <div class="col col-4 px1" @click="$emit('graph', 'linear')">
             <img src="./graph--linear.svg" alt="Graph: Slow">
-            <label class="block mt1 mb2" for="graphChoice1">Slow</label>
-            <input class="radio-btn" type="radio" value="slow" v-model="pool.graph" id="graphChoice2">
+            <label class="block mt1 mb2" for="graphChoice1">Linear</label>
+            <input class="radio-btn" type="radio" value="linear" v-model="pool.graph" id="graphChoice2">
           </div>
           <!-- disabled -->
           <div class="col col-4 px1 opacity-qrtr">
-            <img src="./graph--exponential.svg" alt="Graph: Fast">
-            <label class="block mt1 mb2" for="graphChoice1">Fast</label>
-            <input class="radio-btn" type="radio" value="fast" v-model="pool.graph" id="graphChoice3" disabled>
+            <img src="./graph--exponential.svg" alt="Graph: Exponential">
+            <label class="block mt1 mb2" for="graphChoice1">Exponential</label>
+            <input class="radio-btn" type="radio" value="exponential" v-model="pool.graph" id="graphChoice3" disabled>
           </div>
         </div>
       </div>

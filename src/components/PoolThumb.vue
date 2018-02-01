@@ -20,7 +20,7 @@
           <pool-image v-show="!trade" :bg="true" :src="pool.heroImage" class="absolute top-0 left-0 col-12"></pool-image>
         </div>
         <popout v-show="trade" :pop="trade" class="bg-white">
-          <trade></trade>
+          <trade v-if="trade" :address="pool.address"></trade>
         </popout>
       </figure>
       <!-- text -->
@@ -67,6 +67,9 @@ export default {
     joinLabel () {
       if (this.pool.holders > 0) return `Join ${this.pool.holders} Supporters`
       return 'Support'
+    },
+    activePoolAddr () {
+      return this.$store.state.pool.address
     }
   },
   methods: {
@@ -81,6 +84,9 @@ export default {
     },
     trade () {
       if (this.trade) this.join = false
+    },
+    activePoolAddr (addr) {
+      if (addr !== this.pool.address) this.trade = false
     }
   },
   components: { Popout, Trade, PoolJoin, PoolImage }

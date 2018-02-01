@@ -1,9 +1,12 @@
 <template>
-  <article class="flex flex-column justify-between">
+  <article class="relative flex flex-column justify-between">
+    <div v-show="loading" class="absolute-fill bg-white z3 flex items-center justify-center">
+      <div class="icon icon-loading-1"></div>
+    </div>
     <header class="border-bottom bold">
-      <div class="col col-4 py1 px2 uppercase">{{pool.symbol}}</div>
-      <div class="col col-4 py1 px2 border-left">{{pool.type}}</div>
-      <div class="col col-4 py1 px2 border-left">{{pool.base}}</div>
+      <div class="col col-4 py1 px2 uppercase">{{pool.symbol}}&nbsp;</div>
+      <div class="col col-4 py1 px2 border-left capitalize">{{pool.type}}&nbsp;</div>
+      <div class="col col-4 py1 px2 border-left">{{pool.base}}&nbsp;</div>
     </header>
     <figure class="trade__figure relative flex-item-fill">
       <div class="absolute top-0 left-0 py1 px2 z2">Supply {{totalSupply}} of {{totalEverMinted}}</div>
@@ -65,8 +68,10 @@ import moment from 'moment'
 import {mapState} from 'vuex'
 export default {
   name: 'Trade',
+  props: ['address'],
   data () {
     return {
+      loading: true,
       mode: null,
       amount: 1,
       totalSupply: 0,
@@ -98,6 +103,11 @@ export default {
     tab (tab) {
       this.mode = this.mode === tab ? null : tab
     }
+  },
+  created () {
+    this.$store.dispatch('getPoolDb', this.address).then(() => {
+      setTimeout(() => { this.loading = false }, 200)
+    })
   }
 }
 </script>
