@@ -1,8 +1,8 @@
 import Web3 from 'web3'
 import axios from 'axios'
 
-import PoolContractArtifacts from '../../eth_contracts/build/contracts/Patron.json'
-import ERC20ContractArtifacts from '../../eth_contracts/build/contracts/ERC20.json'
+import PoolContractArtifacts from '../../pool_contracts/build/contracts/Patron.json'
+import ERC20ContractArtifacts from '../../pool_contracts/build/contracts/ERC20.json'
 // const BN = web3.utils.BN
 import ZeroClientProvider from 'web3-provider-engine/zero.js'
 window.deleteIt = function (address) {
