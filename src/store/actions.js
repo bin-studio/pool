@@ -1,5 +1,6 @@
 import Web3 from 'web3'
 import axios from 'axios'
+import utils from 'web3-utils'
 
 import PoolContractArtifacts from '../../pool_contracts/build/contracts/Patron.json'
 import ERC20ContractArtifacts from '../../pool_contracts/build/contracts/ERC20.json'
@@ -10,6 +11,7 @@ window.deleteIt = function (address) {
 }
 let poolContract = null
 let baseContract = null
+
 export default {
   initWeb3 ({state, commit, dispatch}) {
     return new Promise((resolve, reject) => {
@@ -73,7 +75,6 @@ export default {
     })
   },
   subscribe: async ({state, commit}, joinData) => {
-    let utils = global.web3.utils
     console.log(joinData)
     console.log(baseContract)
     let balance = await baseContract.methods.balanceOf(state.account).call()
@@ -106,8 +107,6 @@ export default {
     // function subscribe (address patron, uint256 amount, uint256 interval, uint256 percentToPatron) public payable {
   },
   deploy ({state, commit, dispatch}, pool) {
-    let utils = global.web3.utils
-
     console.log(pool)
     console.log(PoolContractArtifacts.abi)
     var contract = new global.web3.eth.Contract(PoolContractArtifacts.abi)
@@ -216,9 +215,9 @@ export default {
   },
   mint: async ({state}, amount) => {
     if (!poolContract) return
-    let utils = global.web3.utils
+
     amount = utils.toBN(amount)
-    let amountWei = utils.toWei(amount.toString())
+    let amountWei = utils.toBN(utils.toWei(amount.toString()))
     console.log(utils.fromWei(amountWei.toString()), 'amount')
 
     let allowance = await baseContract.methods.allowance(state.account, poolContract.options.address).call()
@@ -228,7 +227,7 @@ export default {
     let baseContractBalance = await baseContract.methods.balanceOf(state.account).call()
     baseContractBalance = utils.toBN(baseContractBalance)
     console.log(utils.fromWei(baseContractBalance.toString()), 'baseContractBalance')
-
+    console.log(amountWei)
     if (amountWei.gt(baseContractBalance)) {
       alert('you dont have enough')
       return

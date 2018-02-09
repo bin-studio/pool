@@ -35,7 +35,8 @@
     "vue-slider-component": "^2.5.3",
     "vuex": "^3.0.1",
     "web3": "^1.0.0-beta.29",
-    "web3-provider-engine": "^13.6.0"
+    "web3-provider-engine": "^13.6.0",
+    "web3-utils": "^1.0.0-beta.29"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
