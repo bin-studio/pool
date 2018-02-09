@@ -80,7 +80,7 @@ export default {
     let allowed = await baseContract.methods.allowance(state.account, state.pool.address).call()
     console.log('base balance', utils.fromWei(balance))
     console.log('base allowed', utils.fromWei(allowed))
-    let totalAllowed = utils.toWei(utils.toBN(joinData.amount)).mul(utils.toBN(joinData.duration))
+    let totalAllowed = utils.toWei(utils.toBN(joinData.amount).toString()).mul(utils.toBN(joinData.duration))
     console.log('new allowed amount', utils.fromWei(totalAllowed))
     console.log(utils.toBN(balance))
     if (!totalAllowed.gt(allowed)) {
@@ -218,7 +218,7 @@ export default {
     if (!poolContract) return
     let utils = global.web3.utils
     amount = utils.toBN(amount)
-    let amountWei = utils.toWei(amount)
+    let amountWei = utils.toWei(amount.toString())
     console.log(utils.fromWei(amountWei.toString()), 'amount')
 
     let allowance = await baseContract.methods.allowance(state.account, poolContract.options.address).call()
