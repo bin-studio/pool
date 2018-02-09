@@ -25,7 +25,7 @@
       </div>
       <div class="tbl-row border-top pt1 px2 pb2">
         <div>Estimated Cost (USD)</div>
-        <div class="est-price h00 right-align line-height-1">$70</div>
+        <div class="est-price h00 right-align line-height-1">$54</div>
       </div>
       <status-row class="border-top" :status="ready ? 2 : 0" @check-click="ready = !ready">
         Everything looks good {{punc}}

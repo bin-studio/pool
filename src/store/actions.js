@@ -118,80 +118,97 @@ export default {
     console.log(state.network === 4 ? 'is rinkeby' : 'is not rinkeby')
 
     let ganache = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254'
+    console.log('network', state.network)
+    let baseToken = state.network === 4 ? rinkebyBaseToken : (state.network === 5771 ? ganache : ropstenBaseToken)
 
-    let baseToken = state.network === 4 ? rinkebyBaseToken : ropstenBaseToken
-    baseToken = ganache
     commit('INC_DEPLOY_STEP', 'two')
-
-    let args = [pool.name, pool.symbol, baseToken, '18', '0', '1']
-    let options = {
-      value: utils.toWei('0.001'),
-      from: state.account,
-      gas: '3200000',
-      gasPrice: '20000000000'
-    }
-    console.log(args)
-    console.log(options)
+    let args = [pool.name, pool.symbol, pool.baseToken === 'DAI' ? baseToken : pool.customBaseTokenAddress, '0', '0', '1000']
 
     contract.deploy({
       arguments: args,
       data: PoolContractArtifacts.bytecode
-    }).send(options, function (e, hash) {
-      commit('INC_DEPLOY_STEP', 'two')
-      commit('INC_DEPLOY_STEP', 'three')
-      console.log('tx')
-      // this.deploying = false
-      // this.confirming = true
-      // this.tx = transactionHash
-    }).on('error', () => {
-      commit('SET_DEPLOY_STEP', {step: 'three', val: 0})
-      console.log('error')
-      // this.confirming = false
-      // this.deploying = false
-      // this.setLoading(false)
-      // this.addNotification({
-      //   text: 'Error has occured, please check logs',
-      //   class: 'error'
-      // })
-    }).then((newContractInstance) => {
-      commit('INC_DEPLOY_STEP', 'three')
-      commit('SET_DEPLOY_STEP', {step: 'three', val: 2})
-      console.log('done')
-      poolContract = newContractInstance
-      // this.setLoading(false)
-      // this.confirming = false
-      console.log(poolContract)
-      commit('INC_DEPLOY_STEP', 'four')
-      axios.post(apiUrl('/pools'), {
-        address: poolContract.options.address,
-        ownerAddress: state.account,
-        name: pool.name,
-        symbol: pool.symbol,
-        type: 'linear',
-        base: 'DAI',
-        baseToken: baseToken,
-        networkId: state.network,
-        links: []
-      }).then(({ data }) => {
+    }).estimateGas(function (err, gas) {
+      if (err) {
+        console.error(err)
+      }
+      console.log(gas)
+      let options = {
+        value: utils.toWei('0.00001'),
+        from: state.account,
+        gas: 3500000, // est: 3452717
+        gasPrice: 20000000000
+      }
+
+      contract.deploy({
+        arguments: args,
+        data: PoolContractArtifacts.bytecode
+      }).send(options, function (e, hash) {
+        commit('INC_DEPLOY_STEP', 'two')
+        commit('INC_DEPLOY_STEP', 'three')
+        console.log('tx')
+        // this.deploying = false
+        // this.confirming = true
+        // this.tx = transactionHash
+      }).on('error', () => {
+        commit('SET_DEPLOY_STEP', {step: 'three', val: 0})
+        console.log('error')
+        // this.confirming = false
+        // this.deploying = false
+        // this.setLoading(false)
+        // this.addNotification({
+        //   text: 'Error has occured, please check logs',
+        //   class: 'error'
+        // })
+      }).then((newContractInstance) => {
+        commit('INC_DEPLOY_STEP', 'three')
+        commit('SET_DEPLOY_STEP', {step: 'three', val: 2})
+        console.log('done')
+        poolContract = newContractInstance
+        // this.setLoading(false)
+        // this.confirming = false
+        console.log(poolContract)
         commit('INC_DEPLOY_STEP', 'four')
-        dispatch('getPools')
-      }).catch((err) => {
-        console.log(err)
+        axios.post(apiUrl('/pools'), {
+          address: poolContract.options.address,
+          ownerAddress: state.account,
+          name: pool.name,
+          symbol: pool.symbol,
+          type: 'linear',
+          base: 'DAI',
+          baseToken: baseToken,
+          networkId: state.network,
+          links: []
+        }).then(({ data }) => {
+          commit('INC_DEPLOY_STEP', 'four')
+          dispatch('getPools')
+        }).catch((err) => {
+          console.log(err)
+        })
+        commit('UPDATE_CURRENT_POOL', poolContract.options.address)
+        // this.address = newContractInstance.options.address
       })
-      commit('UPDATE_CURRENT_POOL', poolContract.options.address)
-      // this.address = newContractInstance.options.address
     })
   },
   deployContract ({state, commit}, poolAddress = state.poolAddress) {
-    console.log('deploy contract!', poolAddress)
     if (poolAddress) {
+      console.log('deploy contract!', poolAddress)
       poolContract = new global.web3.eth.Contract(PoolContractArtifacts.abi, poolAddress)
+      console.log('deploy baseToken!', state.pool.baseToken)
       baseContract = new global.web3.eth.Contract(ERC20ContractArtifacts.abi, state.pool.baseToken)
     }
   },
-  callConstant ({commit}, functionName, parameters) {
-    if (!poolContract) return Promise((resolve, reject) => { resolve() })
-    return poolContract.methods[functionName].call(...parameters)
+  callConstant ({commit, dispatch}, [functionName, parameters, contract = 'poolContact']) {
+    if (!poolContract || !baseContract) {
+      return dispatch('deploy').then(() => {
+        return dispatch('callConstant', [functionName, parameters, contract])
+      })
+    } else {
+      if (contract === 'poolContract') {
+        return poolContract.methods[functionName].call(...parameters)
+      } else {
+        return baseContract.methods[functionName](...parameters).call()
+      }
+    }
   },
   callTransaction ({commit}, functionName, parameters) {
     if (!poolContract) return Promise((resolve, reject) => { resolve() })
@@ -199,15 +216,40 @@ export default {
   },
   mint: async ({state}, amount) => {
     if (!poolContract) return
-    console.log(poolContract)
-    // var beforeBalance = await poolContract.balanceOf(state.account).call()
-    // console.log(beforeBalance.toString())
+    let utils = global.web3.utils
+    amount = utils.toBN(amount)
+    let amountWei = utils.toWei(amount)
+    console.log(utils.fromWei(amountWei.toString()), 'amount')
 
-    // var tx = await poolContract.methods.mint(state.account, amount).send({from: state.account})
-    // console.log(tx)
+    let allowance = await baseContract.methods.allowance(state.account, poolContract.options.address).call()
+    allowance = utils.toBN(allowance)
+    console.log(allowance.toString(), 'allowance')
 
-    // var afterBalance = await poolContract.balanceOf(state.account).call()
-    // console.log(afterBalance.toString())
+    let baseContractBalance = await baseContract.methods.balanceOf(state.account).call()
+    baseContractBalance = utils.toBN(baseContractBalance)
+    console.log(utils.fromWei(baseContractBalance.toString()), 'baseContractBalance')
+
+    if (amountWei.gt(baseContractBalance)) {
+      alert('you dont have enough')
+      return
+    }
+
+    if (amountWei.gt(allowance)) {
+      await baseContract.methods.approve(poolContract.options.address, amountWei).send({from: state.account})
+    }
+
+    // var beforeBalance = await poolContract.methods.balanceOf(state.account).call()
+
+    var calculateMintTokenPerToken = await poolContract.methods.calculateMintTokenPerToken(amount).call()
+    console.log(calculateMintTokenPerToken[1].toString(), 'transferFrom')
+
+    try {
+      await poolContract.methods.mint(state.account, amount).send({from: state.account})
+      var afterBalance = await poolContract.methods.balanceOf(state.account).call()
+      console.log('afterBalance', afterBalance.toString())
+    } catch (error) {
+      console.error(error)
+    }
   },
   unmint ({commit}, amount) {
 

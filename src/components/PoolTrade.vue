@@ -102,8 +102,8 @@ export default {
       price: 130,
       yourBalance: 230,
       poolBalance: 1000,
-      currentDAI: 210, // get from chain
-      currentTokens: 20, // get from chain
+      currentDAI: 0, // get from chain
+      currentTokens: 0, // get from chain
       sliders: {
         buy: {
           tooltip: 'never',
@@ -135,8 +135,17 @@ export default {
     ...mapActions([
       'mint',
       'unmint',
-      'deployContract'
+      'deployContract',
+      'callConstant'
     ]),
+    refreshChainData () {
+      console.log(this.pool, this.pool.user.address)
+      console.log(this.callConstant)
+      this.callConstant(['balanceOf', [this.pool.address], 'baseToken']).then((amt) => {
+        console.log(amt)
+        this.currentDAI = global.web3.utils.fromWei(amt)
+      })
+    },
     convertToDAI (amount) {
       var t = this.currentTokens - amount
       return this.currentDAI - (t * (t + 1)) / 2
@@ -145,14 +154,19 @@ export default {
       return ((-1 + Math.sqrt(1 + 8 * (this.currentDAI + amount))) / 2)
     },
     confirm () {
+      console.log('confirm', this.mode)
       if (this.mode === 'buy') {
+        console.log('buy')
         this.mint(this.buyAmount)
       } else if (this.mode === 'sell') {
         this.unmint(this.sellAmount)
       }
     },
     tab (tab) {
+      console.log('mode', this.mode)
+      console.log('tab', tab)
       this.mode = this.mode === tab ? null : tab
+      console.log('mode', this.mode)
       this.$nextTick(() => {
         this.$refs.sliderBuy.refresh()
         this.$refs.sliderSell.refresh()
@@ -163,6 +177,7 @@ export default {
   created () {
     this.$store.dispatch('getPoolDb', this.address).then(() => {
       this.deployContract(this.address)
+      this.refreshChainData()
       setTimeout(() => { this.loading = false }, 200)
     })
   }

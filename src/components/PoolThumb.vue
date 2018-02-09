@@ -20,7 +20,7 @@
           <pool-image v-show="!trade" :bg="true" :src="pool.heroImage" class="absolute top-0 left-0 col-12"></pool-image>
         </div>
         <popout v-show="trade" :pop="trade" class="bg-white">
-          <trade v-if="trade" :address="pool.address"></trade>
+          <pool-trade v-if="trade" :address="pool.address"></pool-trade>
         </popout>
       </figure>
       <!-- text -->
@@ -52,7 +52,7 @@
 
 <script>
 import Popout from '@/components/Popout'
-import Trade from './PoolTrade'
+import PoolTrade from './PoolTrade'
 import PoolJoin from './PoolJoin'
 import PoolImage from '@/components/Image'
 import { mapActions } from 'vuex'
@@ -99,7 +99,7 @@ export default {
       if (addr !== this.pool.address) this.trade = false
     }
   },
-  components: { Popout, Trade, PoolJoin, PoolImage }
+  components: { Popout, PoolTrade, PoolJoin, PoolImage }
 }
 </script>
 
