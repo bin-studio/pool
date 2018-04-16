@@ -84,11 +84,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'deployContract'
+      'deployContract',
+      'updateCurrentPool'
     ])
   },
   watch: {
     join () {
+      this.updateCurrentPool(this.pool)
       if (this.join) this.trade = false
       if (this.join) this.deployContract(this.pool.address)
     },
@@ -96,7 +98,10 @@ export default {
       if (this.trade) this.join = false
     },
     activePoolAddr (addr) {
-      if (addr !== this.pool.address) this.trade = false
+      if (addr !== this.pool.address) {
+        this.trade = false
+        this.join = false
+      }
     }
   },
   components: { Popout, PoolTrade, PoolJoin, PoolImage }

@@ -81,7 +81,9 @@ export default {
     let allowed = await baseContract.methods.allowance(state.account, state.pool.address).call()
     console.log('base balance', utils.fromWei(balance))
     console.log('base allowed', utils.fromWei(allowed))
-    let totalAllowed = utils.toWei(utils.toBN(joinData.amount).toString()).mul(utils.toBN(joinData.duration))
+    let totalAllowed = utils.toWei(utils.toBN(joinData.amount).toString())
+    console.log(totalAllowed)
+    totalAllowed = utils.toBN(totalAllowed).mul(utils.toBN(joinData.duration))
     console.log('new allowed amount', utils.fromWei(totalAllowed))
     console.log(utils.toBN(balance))
     if (!totalAllowed.gt(allowed)) {
@@ -190,6 +192,7 @@ export default {
     })
   },
   deployContract ({state, commit}, poolAddress = state.poolAddress) {
+    console.log(poolAddress)
     if (poolAddress) {
       console.log('deploy contract!', poolAddress)
       console.log(PoolContractArtifacts.abi)
@@ -272,6 +275,9 @@ export default {
     }).catch((err) => {
       console.log(err)
     })
+  },
+  updateCurrentPool ({ commit }, pool) {
+    commit('GET_POOL_DB', pool)
   },
   getPoolDb ({ commit }, address) {
     return new Promise((resolve, reject) => {
