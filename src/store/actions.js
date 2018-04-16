@@ -107,6 +107,7 @@ export default {
     // function subscribe (address patron, uint256 amount, uint256 interval, uint256 percentToPatron) public payable {
   },
   deploy ({state, commit, dispatch}, pool) {
+    console.log('DEPLOY')
     console.log(pool)
     console.log(PoolContractArtifacts.abi)
     var contract = new global.web3.eth.Contract(PoolContractArtifacts.abi)
@@ -119,7 +120,7 @@ export default {
     let ganache = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254'
     console.log('network', state.network)
     let baseToken = state.network === 4 ? rinkebyBaseToken : (state.network === 5771 ? ganache : ropstenBaseToken)
-
+    console.log(baseToken)
     commit('INC_DEPLOY_STEP', 'two')
     let args = [pool.name, pool.symbol, pool.baseToken === 'DAI' ? baseToken : pool.customBaseTokenAddress, '0', '0', '1000']
 
@@ -191,8 +192,10 @@ export default {
   deployContract ({state, commit}, poolAddress = state.poolAddress) {
     if (poolAddress) {
       console.log('deploy contract!', poolAddress)
+      console.log(PoolContractArtifacts.abi)
       poolContract = new global.web3.eth.Contract(PoolContractArtifacts.abi, poolAddress)
       console.log('deploy baseToken!', state.pool.baseToken)
+      console.log(ERC20ContractArtifacts.abi)
       baseContract = new global.web3.eth.Contract(ERC20ContractArtifacts.abi, state.pool.baseToken)
     }
   },
@@ -271,10 +274,14 @@ export default {
     })
   },
   getPoolDb ({ commit }, address) {
-    axios.get(apiUrl(`/pools/${address}`)).then(({ data }) => {
-      commit('GET_POOL_DB', data)
-    }).catch((err) => {
-      console.log(err)
+    return new Promise((resolve, reject) => {
+      axios.get(apiUrl(`/pools/${address}`)).then(({ data }) => {
+        commit('GET_POOL_DB', data)
+        resolve()
+      }).catch((err) => {
+        console.log(err)
+        reject(err)
+      })
     })
   },
 

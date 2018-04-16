@@ -139,10 +139,7 @@ export default {
       'callConstant'
     ]),
     refreshChainData () {
-      console.log(this.pool, this.pool.user.address)
-      console.log(this.callConstant)
       this.callConstant(['balanceOf', [this.pool.address], 'baseToken']).then((amt) => {
-        console.log(amt)
         this.currentDAI = global.web3.utils.fromWei(amt)
       })
     },
@@ -163,10 +160,7 @@ export default {
       }
     },
     tab (tab) {
-      console.log('mode', this.mode)
-      console.log('tab', tab)
       this.mode = this.mode === tab ? null : tab
-      console.log('mode', this.mode)
       this.$nextTick(() => {
         this.$refs.sliderBuy.refresh()
         this.$refs.sliderSell.refresh()
