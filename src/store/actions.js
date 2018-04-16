@@ -84,7 +84,7 @@ export default {
     let totalAllowed = utils.toWei(utils.toBN(joinData.amount).toString())
     console.log(totalAllowed)
     totalAllowed = utils.toBN(totalAllowed).mul(utils.toBN(joinData.duration))
-    console.log('new allowed amount', utils.fromWei(totalAllowed))
+    console.log('new allowed amount', utils.fromWei(totalAllowed.toString()))
     console.log(utils.toBN(balance))
     if (!totalAllowed.gt(allowed)) {
       console.log('not enough')
